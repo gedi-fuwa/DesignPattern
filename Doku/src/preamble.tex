@@ -1,0 +1,303 @@
+% ##################################################
+% Unterstuetzung fuer die deutsche Sprache
+% ##################################################
+\usepackage{ngerman}
+\usepackage[ngerman]{babel}
+
+% ##################################################
+% Dokumentvariablen
+% ##################################################
+
+% Persoenliche Daten
+\newcommand{\docA}{Eduard Albach}
+\newcommand{\docB}{Felix Penthin}
+\newcommand{\docC}{Marco Haas}
+\newcommand{\docD}{Eric Saier}
+\newcommand{\docE}{Philipp Schneider}
+
+% Dokumentdaten
+\newcommand{\docTitle}{Design Patterns in IBM Rhapsody}
+%\newcommand{\docUntertitle}{} % Kein Untertitel
+\newcommand{\docUntertitle}{UNTERTITEL}
+% Arten der Arbeit: Bachelorthesis, Masterthesis, Seminararbeit, Diplomarbeit
+\newcommand{\docArtDerArbeit}{Semesterprojekt}
+%Studiengaenge: Allgemeine Informatik Bachelor, Computer Networking Bachelor,
+% Software-Produktmanagement Bachelor, Advanced Computer Scinece Master
+\newcommand{\docStudiengang}{STUDIENGANG}
+\newcommand{\docAbgabedatum}{01.01.2015}
+\newcommand{\docErsterReferent}{Prof. Dr. R. Müller}
+%\newcommand{\docZweiterReferent}{-} % Wenn es nur einen Betreuer gibt
+%\newcommand{\docZweiterReferent}{ZWEITER REFERENT}
+
+% ##################################################
+% Allgemeine Pakete
+% ##################################################
+
+% Abbildungen einbinden
+\usepackage{graphicx}
+
+% Zusaetsliche Sonderzeichen
+\usepackage{dingbat}
+
+% Farben
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% Maskierung von URLs und Dateipfaden
+\usepackage[hyphens]{url}
+
+% Deutsche Anfuehrungszeichen
+\usepackage[babel, german=quotes]{csquotes}
+
+% Pakte zur Index-Erstellung (Schlagwortverzeichnis)
+\usepackage{index}
+\makeindex
+
+% Ipsum Lorem
+% Paket wird nur für das Beispiel gebraucht und kann gelöscht werden
+\usepackage{lipsum}
+
+% ##################################################
+% Seitenformatierung
+% ##################################################
+\usepackage[
+	portrait,
+	bindingoffset=1.5cm,
+	inner=2.5cm,
+	outer=2.5cm,
+	top=3cm,
+	bottom=2cm,
+	%includeheadfoot
+	]{geometry}
+
+% ##################################################
+% Kopf- und Fusszeile
+% ##################################################
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL,OR]{\sffamily\thepage}
+\fancyhead[ER,OL]{\sffamily\leftmark}
+
+\fancypagestyle{headings}{}
+
+\fancypagestyle{plain}{}
+
+\fancypagestyle{empty}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+%Kein "Kapitel # NAME" in der Kopfzeile
+\renewcommand{\chaptermark}[1]{
+	\markboth{#1}{}
+   	\markboth{\thechapter.\ #1}{}
+}
+
+% ##################################################
+% Schriften
+% ##################################################
+
+% Stdandardschrift festlegen
+\renewcommand{\familydefault}{\sfdefault}
+
+% Standard Zeilenabstand: 1,5 zeilig
+\usepackage{setspace}
+\onehalfspacing 
+
+% Schriftgroessen festlegen
+\addtokomafont{chapter}{\sffamily\large\bfseries} 
+\addtokomafont{section}{\sffamily\normalsize\bfseries} 
+\addtokomafont{subsection}{\sffamily\normalsize\mdseries} 
+\addtokomafont{caption}{\sffamily\normalsize\mdseries} 
+
+%Einrücken von Absätzen deaktivieren
+\setlength{\parindent}{0pt}
+
+% ##################################################
+% Inhaltsverzeichnis / Allgemeine Verzeichniseinstellungen
+% ##################################################
+
+\usepackage{tocloft}
+
+% Punkte auch bei Kapiteln
+\renewcommand{\cftchapdotsep}{3}
+\renewcommand{\cftdotsep}{3}
+
+% Schriftart und -groesse im Inhaltsverzeichnis anpassen
+\renewcommand{\cftchapfont}{\sffamily\normalsize}
+\renewcommand{\cftsecfont}{\sffamily\normalsize}
+\renewcommand{\cftsubsecfont}{\sffamily\normalsize}
+\renewcommand{\cftchappagefont}{\sffamily\normalsize}
+\renewcommand{\cftsecpagefont}{\sffamily\normalsize}
+\renewcommand{\cftsubsecpagefont}{\sffamily\normalsize}
+
+%Zeilenabstand in den Verzeichnissen einstellen
+\setlength{\cftparskip}{.5\baselineskip}
+\setlength{\cftbeforechapskip}{.1\baselineskip}
+
+% ##################################################
+% Abbildungsverzeichnis und Abbildungen
+% ##################################################
+
+\usepackage{caption}
+
+\usepackage{wrapfig}
+
+% Nummerierung von Abbildungen
+\renewcommand{\thefigure}{\arabic{figure}}
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+
+% Abbildungsverzeichnis anpassen
+\renewcommand{\cftfigpresnum}{Abbildung }
+\renewcommand{\cftfigaftersnum}{:}
+
+% Breite des Nummerierungsbereiches [Abbildung 1:]
+\newlength{\figureLength}
+\settowidth{\figureLength}{\bfseries\cftfigpresnum\cftfigaftersnum}
+\setlength{\cftfignumwidth}{\figureLength}
+\setlength{\cftfigindent}{0cm}
+
+% Schriftart anpassen
+\renewcommand\cftfigfont{\sffamily}
+\renewcommand\cftfigpagefont{\sffamily}
+
+% ##################################################
+% Tabellenverzeichnis und Tabellen
+% ##################################################
+
+% Nummerierung von Tabellen
+\renewcommand{\thetable}{\arabic{table}}
+\counterwithout{table}{chapter}
+
+% Tabellenverzeichnis anpassen
+\renewcommand{\cfttabpresnum}{Tabelle }
+\renewcommand{\cfttabaftersnum}{:}
+
+% Breite des Nummerierungsbereiches [Abbildung 1:]
+\newlength{\tableLength}
+\settowidth{\tableLength}{\bfseries\cfttabpresnum\cfttabaftersnum}
+\setlength{\cfttabnumwidth}{\tableLength}
+\setlength{\cfttabindent}{0cm}
+
+%Schriftart anpassen
+\renewcommand\cfttabfont{\sffamily}
+\renewcommand\cfttabpagefont{\sffamily}
+
+% Unterdrueckung von vertikalen Linien
+\usepackage{booktabs}
+
+%Fluss eigenschaften von Tabellen
+
+\usepackage{float}
+
+%Longtable
+
+\usepackage{longtable}
+
+% ##################################################
+% Listings (Quellcode)
+% ##################################################
+
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                     
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=codestyle}
+
+ \lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  sensitive=true
+}	
+
+% "define" Scala
+\lstdefinelanguage{scala}{
+  morekeywords={abstract,case,catch,class,def,%
+    do,else,extends,false,final,finally,%
+    for,if,implicit,import,match,mixin,%
+    new,null,object,override,package,%
+    private,protected,requires,return,sealed,%
+    super,this,throw,trait,true,try,%
+    type,val,var,while,with,yield},
+  otherkeywords={=>,<-,<\%,<:,>:,\#,@},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[n]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]"""
+}
+  	
+% ##################################################
+% Theoreme
+% ##################################################
+  	
+% Umgebung fuer Beispiele
+\newtheorem{beispiel}{Beispiel}
+
+% Umgebung fuer These
+\newtheorem{these}{These}
+
+% Umgebung fuer Definitionen
+\newtheorem{definition}{Definition}
+  	
+% ##################################################
+% Literaturverzeichnis
+% ##################################################
+
+\usepackage{bibgerm}
+
+% ##################################################
+% Abkuerzungsverzeichnis
+% ##################################################
+
+\usepackage[printonlyused]{acronym}
+
+% ##################################################
+% PDF / Dokumenteninternelinks
+% ##################################################
+
+\usepackage[
+	colorlinks=false,
+   	linkcolor=black,
+   	citecolor=black,
+  	filecolor=black,
+	urlcolor=black,
+    bookmarks=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=3,
+    bookmarksnumbered,
+    plainpages=false,
+    pdfpagelabels=true,
+    hyperfootnotes,
+    pdftitle ={\docTitle},
+    pdfauthor={\docA \docB \docC \docD},
+    pdfcreator={\docA~\docB~\docC~\docD}]{hyperref}

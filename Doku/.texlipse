@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Wed Mar 25 15:51:35 CET 2015
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=main.tex
+outputFile=Design_Patterns_Rhapsody_Doku.pdf
+langSpell=de
+markDer=true
+srcDir=src/
