@@ -1,0 +1,28 @@
+\chapter{Singleton}
+
+\section{Allgemeine Informationen}
+
+"Singelton" ist ein Entwurfsmuster das dafür sorgt, dass es nur eine Instanz einer Klasse gibt. Auf diese kann global zugegriffen werden und durch den privaten Konstruktor wird verhindert, dass andere Klassen weitere Instanzen erstellen können.
+\\
+\\
+Die Singleton-Klasse umfasst daher einen privaten Konstruktor, einen Kopierkonstruktor, einen Zeiger auf die einzigartige Instanz und natürlich den Destruktor. Nur eine Methode ist öffentlich, die "GetInstanz"-Methode.
+\\
+\\
+Es gibt viele verschiedene Implementationen des Musters. Wir haben uns für diese Variante entschieden. Besonders muss zwischen zwei Versionen des Musters unterscheiden werden. Es gibt eine Eager- und eine Lazy Version.
+\\
+\\
+Bei der "Eager Loading" Version findet das Erzeugen der Instanz beim Laden der Klasse statt. Vorteile sind hier die Einfachheit und die Threadsicherheit. Jedoch gibt es auch Nachteile. Durch eine verfrühte Erzeugung können Probleme entstehen. Wenn vor der Initialisierung Informationen benötigt werden kann es zu Problemen kommen. Auch eine zu frühe Erzeugung bei ressourcenintensiven Singelton kann Probleme machen.
+\\
+\\
+Man sieht, dass die Eager Loading Version nur dann sinnvoll ist, wenn es sich um eine kleine Singelton Klasse handelt.
+\\
+\\
+Gegenteilig verhält sich die "Lazy Loading" Variante des Singleton Musters. Hier wird die Instanz erst beim ersten Aufruf erzeugt. Die Methode GetInstance überprüft, ob bereits eine Instanz erzeugt wurde und erstellt für den Fall, dass es keine gibt, eine neue. Falls es bereits eine Instanz gibt wird diese zurückgegeben.
+\\
+\\
+Ein Problem bei dieser Methode ist die Threadsicherheit. Diese ist nicht mehr gegeben.
+
+\section{Umsetzung}
+
+Wenn der Entwickler ein UML-Diagramm in Rhapsody zeichnet und dabei eine bestimmte Klasse als Singleton implementieren möchte, setzt er bei dieser Klasse den Stereotype als Singleton. Möchte der Entwickler nun aus diesem Diagramm Code generieren, wird von Rhapsody wie in Kapitel 1 - Aufgabenbeschreibung erläutert Java-Klassen aufgerufen, die diese Klasse dann als Singleton Klasse in C++-Code erzeugen.
+
