@@ -1,0 +1,132 @@
+
+\chapter{Observer}
+
+\section{Allgemein}
+Das Observer Pattern gehört zur Kategorie der Verhaltensmuster der Entwurfsmuster. 
+Bei diesem Muster geht es um die Bekanntmachung von Änderungen. Dazu arbeiten vier 
+Klassen zusammen.\\ \\
+Diese Klassen sind "Subject", "Observer", "ConcreteSubject" und "ConcreteObserver". 
+Dieses Muster ist immer dann anzuwenden, wenn ein Objekt über die Änderung eines anderen 
+Objekt in Kenntniss gesetzt werden muss. Ein Beispiel dafür ist eine grafische Oberfläche,
+ die Werte anzeigen soll, die sich im laufenden Betrieb ändern können. So gibt es hier 
+ einen "Observer", der die Veränderungen wahrnimmt und diese dann dementsprechend 
+ behandelt. Dabei gibt es verschiedene Möglichkeiten den veränderten Status mitzuteilen. 
+ Sobald sich der Status desd Subjektes ändert, werden alle Beobachter informiert. 
+ Entweder werden alle Daten zu diesem Zeitpunkt mitgeschickt, oder erst später, 
+ sodass nur eine Benachrichtigung erfolgt. Eine weitere Möglichkeit ist, dass der 
+ Beobachter selbstständig nach Veränderungen fragt. In unserem Beispiel teilt das 
+ Subject seine Veränderung dem bzw. den Beobachtern mit. Das folgende Beispiel zeigt, 
+ wie sich die Beobachter beim Subject anmelden und Veränderungen mitbekommen. 
+ \begin{lstlisting}
+class Subject {
+public:
+    void attach_Observer(
+    	shared_ptr<Observer> observer) = 0;
+    void detach_Observer(
+    	shared_ptr<Observer> observer) = 0;
+    void notify_Observer() = 0;
+};
+ 
+class ConcreteSubjekt : public Subject {
+    vector<shared_ptr<Observer>> _observer;
+    int   _value;
+public:
+    ConcreteSubjekt() : _value(0) {}
+ 
+    void attach_Observer(
+    	shared_ptr<Observer> observer) {
+    	
+        _observer.add(observer);
+    }
+    void detach_Observer(shared_ptr<Observer>
+    	observer) {
+    	
+        auto pos = find_if(_observer.begin(), _observer.end(),
+        	 [&](shared_ptr<Observer> const& b) { 
+        	 	return *b == *observer;
+         });
+          
+         if (pos != _observer.end()) 
+         	_observer.erase(pos);
+    }
+    void notify_Observer() {
+        for (auto& beo : _observer) {
+            beo->set(_value);
+        }
+    }
+ 
+    void setValue(int value) {
+        _value = value;
+        notify_Observer();
+    }
+};
+ 
+class Observer {
+    void set(int value) = 0;
+};
+ 
+class ConcreteObserver1 : public Observer {
+public:
+    void set(int value) {
+        out << "Observer 1 with value = " << value << "\n";
+    }
+};
+ 
+class ConcreteObserver2 : public Observer {
+public:
+    void set(int value) {
+        out << "Observer 2 with value = " << value << "\n";
+    }
+};
+ 
+int main() {
+    shared_ptr<Subject> oneSubject(new KonkretesSubjekt());
+    shared_ptr<Observer> observer1(
+    		new ConcreteObserver1());
+    shared_ptr<Observer> observer2(
+    		new ConcreteObserver2());
+ 
+    oneSubject->attach_Observer(observer1);
+    oneSubject->attach_Observer(observer2);
+ 
+    oneSubject->setValue(10);
+    oneSubject->detach_Observer(observer1);
+    oneSubject->setValue(20);
+}
+\end{lstlisting}
+ Ein Nachteil des Observer Patterns ist der hohe Aufwand bei Änderungen am
+ Subject. Hier muss dann auch der Observer angepasst werden, was hohe Änderungskosten zur
+ Folge hat.
+
+\section{Umsetzung}
+Kommen wir nun zur Umsetzung des Design-Pattern Observer in Rhapsody. Nach
+einer Diskussion in der Gruppe haben wir uns für eine Lösung entschieden. Damit
+wir Probleme ausschließen können haben wir Klassen- und Methodennamen
+reserviert. So bekommt der Benutzer eine Fehlermeldung, wenn eine Methode schon
+den Methodennamen unserer erzeugten Interfaces verwenden will. Dies gilt auch für
+Klassennamen wie Observer und Subject. Diese Namen sind für die Erzeugung
+gesperrt. Bei Verwendung erfolgt ebenfalls eine Fehlermeldung.\\
+Für den Observer stehen zwei Sterotypen zur Verfügung. Einmal das Subject und
+einmal der Observer. Wenn eine Klasse als Stereotyp Observer gekennzeichnet wird, wird ein
+Interface erstellt und in das bestehende Projekt eingefügt. Dabei hat das
+Interface eine Methode, das update. Da Observer ein Interface ist wird die
+Methode update auch in die Unterklasse implementiert. Diese Methode ist jedoch
+leer. Hier muss der Benutzer selber entscheiden welche Funktion bzw. welche
+Funktionen bei einem notify aufgerufen werden.\\
+Natürlich macht ein Observer ohne ein Subject wenig Sinn. So kann der Benutzer
+Subject und Observer einzeln implementieren, jedoch macht nur eine Kombination
+von beiden Sinn. Wenn nur ein Stereotyp verwendet wird ist das Observerpattern
+nicht vollständig. Es folgt eine Warnmeldung jedoch lässt sich der Code trotzdem
+ausführen.\\
+Beim Stereotyp Subject wird wie beim Observer ein Interface erstellt. Dieses hat
+drei public Funktionen. Dazu zählen register_Observer, delete_Observer und
+notify_Observer. Diese Funktionen werden somit auch in die erbende Klasse
+implementiert. Die Observer werden automatisch in einen Vector gespeichert und
+somit regestriert. Um diese Observer wieder aus dem Vector zu löschen wird die
+Funktion delete_Observer auch funktionsfähig implementiert. \\
+Die Funktion notify_Observer wird leer in die Stereotyp Subject Klasse
+implementiert. Hier muss der Benutzer selber entscheiden wie er den Observer
+informiert. 
+
+
+						
