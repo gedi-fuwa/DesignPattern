@@ -2,33 +2,33 @@
 
 \section{Aufgabenbeschreibung}
 
-Ziel dieses Semesterprojektes ist es mit Rhapsody, ein mächtiges Tool zur Codegenerierung Design Pattern zu implementieren. Diese werden standardmäßig von Rhapsody nicht angeboten und sollen in Form von Stereotypen während diesem Semester implementiert und getestet werden.
+Ziel dieses Semesterprojekts ist es mit Rhapsody, einem mächtigem Tool zur Codegenerierung, Design Patterns zu implementieren. Diese werden standardmäßig von Rhapsody nicht angeboten und sollen in Form von Stereotypen während diesem Semester implementiert und getestet werden. \\
 \\
-<<<<<<< Updated upstream
-In dem vorangegangenen Semester wurde die Umsetzbarkeit der Design Pattern
-\begin{itemize}
-\item Singleton
-\item Observer Pattern
-\end{itemize}
-belegt. Diese sollen nun dieses Semester vollständig umgesetzt und getestet werden. 
-Sind diese Stereotypen dann vollständig in Rhapsody implementiert, ruft Rhapsody 
-automatisch Java-Klassen auf, welche dann das als Objektbaum vorliegende Modell 
-umbauen können.
-\\
-Sollte am Ende des Semesters noch genügend Zeit übrig sein, können
-selbstverständlich noch weitere Design Pattern umgesetzt werden.
-
-=======
 In dem vorangegangenen Semester wurde die Umsetzbarkeit der Design Pattern Singleton und Observer belegt. Weiterhin soll das Design Pattern Guarded Call umgesetzt werden. \\
-Diese sollen nun dieses Semester vollständig umgesetzt und getestet werden. Sind diese Stereotypen dann vollständig in Rhapsody implementiert, ruft Rhapsody automatisch Java-Klassen auf, welche dann das als Objektbaum vorliegende Modell umbauen können.
+Diese sollen nun dieses Semester vollständig umgesetzt und getestet werden. Sind diese Stereotypen dann vollständig in Rhapsody implementiert, soll Rhapsody automatisch Java-Klassen aufrufen, welche dann das als Objektbaum vorliegende Modell umbauen können.\\
 
-\begin{wrapfigure}[p]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.66\textwidth]{content/pictures/Simplification}
 	\label{pic:bild}
-	\caption{blabla}
-\end{wrapfigure}
+	\caption{Ein Diagramm der Nutzung der Umsetzung der Design Patterns}
+\end{figure}
 
-Blabla
->>>>>>> Stashed changes
+Die enstprechenden Design Patterns werden im Laufe der Dokumentation genauer erläutert.\\
+Das Projekt umfasst hierbei nicht nur die Implementierung der Design Patterns für Rhapsody, sondern auch das Schreiben einer Anwenderdokumentation, das Erstellen von Testfällen und letztlich das Durchführen der Tests. Im Folgenden werden diese Phasen genauer erläutert.
 
+\subsection{Implementierung}
+
+Die Implementierung, welche insgesamt nur einen Umfang von 30-40 \% der Gesamtzeit des Projekts in Anspruch nehmen soll, umfasst das Umsetzen der drei Design Patterns für Rhapsody, sodass ein Programmierer, der Rhapsody nutzt, in Zukunft nur ein UML-Diagramm seines Projekts eingeben und die entsprechenden Stereotypen auswählen muss, um sein Projekt mit Design Patterns auszustatten. Um die Implementierung der Muster muss er sich in Zukunft also keine Gedanken mehr machen, diese Aufgabe übernimmt in Zukunft Rhapsody.\\
+Die Umsetzung der Patterns erfolgt über eine Datei “DesignPatterns.java”, die beim Erstellen eines Projekts mit Stereotypen von Rhapsody aufgerufen wird. In ihr definieren wir die Design Patterns für C++ so, dass sie in bestehende Projekte eingearbeitet werden können.
+
+\subsection{Anwenderdokumentation/Handbuch}
+
+Die Anwenderdokumentation bzw. das Handbuch soll zeitlich am Anfang des Projekts fertiggestellt werden. In ihr werden zukünftigen Nutzern Anwendungsfälle und Vorgehensweisen erläutert. Zum einen soll das Handbuch eine Hilfe für die Nutzer des Projektes werden, zum anderen stellt es den Grundstein für die Erstellung von Testfällen dar. Nur wenn die Anwendungsfälle vollständig und korrekt beschrieben werden, können davon sinnvolle Testfälle abgeleitet werden.\\
+Daher ist die Erstellung des Handbuchs eine Aufgabe, die zeitlich am Anfang des Projekts angesiedelt ist.
+
+\subsection{Testen}
+
+Das Testen ist der wichtigste und größte Teil des Projektes. Nachdem das Handbuch fertig geschrieben und somit die Anwendungsfälle definiert wurden, müssen dazu passende Testfälle entworfen werden. Aufgrund der vielen Unbekannten, die aus einem Projekt entstehen können, gibt es viele potentielle Fehlerquellen, die abgedeckt werden müssen. Nur wenn alle Tests bestanden werden gilt das Projekt als erfolgreich.\\
+Für die Durchführung gilt: Ein Test darf nur von den Gruppenmitgliedern durchgeführt werden, die den Testfall nicht geschrieben haben. Somit wird gleichzeitig die Qualität der Anwendungs- und der daraus abgeleiteten Testfälle deutlich.\\
+Für Testfälle, die nicht erfolgreich durchgeführt werden, ist am Ende des Projektzeitplans ein kurzer Korrekturzeitraum eingeplant. 
