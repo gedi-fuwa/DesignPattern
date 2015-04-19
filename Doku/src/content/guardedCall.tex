@@ -1,0 +1,41 @@
+\chapter{Guarded Call}
+
+\section{Allgemeine Informationen}
+Der "Guarded Call" ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt, dass der Code einer Methode nur von einem Thread gleichzeitig ausgeführt werden kann.\\
+Dabei überprüft der Thread vor dem Aufruf der Methode ob sie bereits von einem anderen Thread gesperrt ist. Ist dies der Fall, wird der Thread auf den Zustand \enquote{schlafend} gesetzt und der Scheduler widmet sich einem anderen Thread zu. Ist die Methode allerdings nicht gesperrt setzt der aktive Thread die Sperre selbst, um anschließend die Methode auszuführen. Nachdem die Methode verlassen wurde, wird die Sperre wieder aufgehoben.\\
+Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. die Referenz des Objekts zunächst zwischengespeichert, um anschließend die Sperre aufzuheben und schließlich den gespeicherten Wert zurückzugeben.\\
+Nachdem die Sperre aufgehoben wurde werden die schlafenden Threads aufgeweckt, wobei einer der Threads nun erneut die Sperre setzen und die Methode aufrufen kann.
+
+\section{Umsetzung}
+Anm: muss beim Meeting noch disktutiert werden:\\
+1. ob das Mutex-Objekt evtl. von Rhapsody erstellt wird)\\
+2. Funktionsnamen: myFunction (Benutzer) und myFunctionWrapper (generiert) oder myFunctionGuarded (Benutzer) und myFunction (generiert)\\
+
+ \begin{lstlisting}
+// (Funktion des Benutzers, die geschuetzt werden soll)
+void myFunction() {
+
+}
+
+// (generierte Methode)
+void myFunctionWrapper() {
+	myFunctionMutex.lock();
+	myFunction();
+	myFunctionMutex.unlock();
+}
+
+bzw.
+
+int myFunction2() {
+	...
+}
+
+int myFunction2Wrapper() {
+	myFunction2Mutex.lock();
+	int temp = myFunction2();
+	myFunction2Mutex.unlock();
+
+	return temp;
+}
+
+\end{lstlisting}
