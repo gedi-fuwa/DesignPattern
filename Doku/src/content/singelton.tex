@@ -14,7 +14,7 @@ Es gibt viele verschiedene Implementationen des Musters. Wir haben uns für dies
 Bei der "Eager Loading" Version findet das Erzeugen der Instanz beim Laden der Klasse statt. Vorteile sind hier die Einfachheit und die Threadsicherheit. Jedoch gibt es auch Nachteile. Durch eine verfrühte Erzeugung können Probleme entstehen. Wenn vor der Initialisierung Informationen benötigt werden kann es zu Problemen kommen. Auch eine zu frühe Erzeugung bei ressourcenintensiven Singelton kann Probleme machen.
 \\
 \\
-Man sieht, dass die Eager Loading Version nur dann sinnvoll ist, wenn es sich um eine kleine Singelton Klasse handelt.
+Man sieht, dass die Eager Loading Version nur dann sinnvoll ist, wenn es sich um eine kleine Singleton Klasse handelt.
 \\
 \\
 Gegenteilig verhält sich die "Lazy Loading" Variante des Singleton Musters. Hier wird die Instanz erst beim ersten Aufruf erzeugt. Die Methode GetInstance überprüft, ob bereits eine Instanz erzeugt wurde und erstellt für den Fall, dass es keine gibt, eine neue. Falls es bereits eine Instanz gibt wird diese zurückgegeben.
@@ -22,17 +22,18 @@ Gegenteilig verhält sich die "Lazy Loading" Variante des Singleton Musters. Hie
 \\
 Ein Problem bei dieser Methode ist die Threadsicherheit. Diese ist nicht mehr gegeben. \\
 
-Es folgt ein Beispiel für eine Implementation des Singelton Patterns von Scott Meyers, bei dem auch das Objekt beim Ende des Programms zerstört wird:
+Es folgt ein Beispiel für eine Implementation des Singleton Patterns von Scott Meyers, bei dem auch das Objekt beim Ende des Programms zerstört wird:
 \begin{lstlisting}
 
 class Singleton
 {
 private:
-    // Standard- und Copykonstruktor sind private. 
+    // Standard- und Copykonstruktor sowie Destruktor sind private. 
     // Nur Methoden dieser Klasse koennen auf sie 
     // zugreifen.
     Singleton() {};
     Singleton(const Singleton&);
+    ~Singleton();
 
     // Es gibt nur eine Instanz. Jede Zuweisung waere
     // eine Selbstzuweisung.
@@ -44,17 +45,17 @@ public:
     // Instanz.
     // Nur ueber diese Methode erhalten Anwender den 
     // Zugriff auf die Instanz.
-    static Singleton& GetInstanz() 
+    static Singleton& GetInstance() 
     {
         // Die Instanz wird erst beim ersten Aufruf
         // erzeugt.
         // Endet das Programm, wird Instanz vernichtet.
-        static Singleton Instanz;
-        return Instanz;
+        static Singleton Instance;
+        return Instance;
     }
 };
 \end{lstlisting}
-Natürlich kann man sich auch für eine andere Art von Singelton entscheiden, jedoch ist dies eine sehr einfache Art, das Singelton Pattern umzusetzen.
+Natürlich kann man sich auch für eine andere Art von Singleton entscheiden, jedoch ist dies eine sehr einfache Art, das Singleton Pattern umzusetzen.
 
 \section{Umsetzung}
 
