@@ -17,18 +17,66 @@ Diese sollen nun dieses Semester vollständig umgesetzt und getestet werden. Sin
 Die enstprechenden Design Patterns werden im Laufe der Dokumentation genauer erläutert.\\
 Das Projekt umfasst hierbei nicht nur die Implementierung der Design Patterns für Rhapsody, sondern auch das Schreiben einer Anwenderdokumentation, das Erstellen von Testfällen und letztlich das Durchführen der Tests. Im Folgenden werden diese Phasen genauer erläutert.
 
-\subsection{Implementierung}
+\section{Implementierung}
 
 Die Implementierung, welche insgesamt nur einen Umfang von 30-40 \% der Gesamtzeit des Projekts in Anspruch nehmen soll, umfasst das Umsetzen der drei Design Patterns für Rhapsody, sodass ein Programmierer, der Rhapsody nutzt, in Zukunft nur ein UML-Diagramm seines Projekts eingeben und die entsprechenden Stereotypen auswählen muss, um sein Projekt mit Design Patterns auszustatten. Um die Implementierung der Muster muss er sich in Zukunft also keine Gedanken mehr machen, diese Aufgabe übernimmt in Zukunft Rhapsody.\\
 Die Umsetzung der Patterns erfolgt über eine Datei “DesignPatterns.java”, die beim Erstellen eines Projekts mit Stereotypen von Rhapsody aufgerufen wird. In ihr definieren wir die Design Patterns für C++ so, dass sie in bestehende Projekte eingearbeitet werden können.
 
-\subsection{Anwenderdokumentation/Handbuch}
+\section{Anwenderdokumentation/Handbuch}
 
 Die Anwenderdokumentation bzw. das Handbuch soll zeitlich am Anfang des Projekts fertiggestellt werden. In ihr werden zukünftigen Nutzern Anwendungsfälle und Vorgehensweisen erläutert. Zum einen soll das Handbuch eine Hilfe für die Nutzer des Projektes werden, zum anderen stellt es den Grundstein für die Erstellung von Testfällen dar. Nur wenn die Anwendungsfälle vollständig und korrekt beschrieben werden, können davon sinnvolle Testfälle abgeleitet werden.\\
 Daher ist die Erstellung des Handbuchs eine Aufgabe, die zeitlich am Anfang des Projekts angesiedelt ist.
 
-\subsection{Testen}
+\section{Simplification}
+Der "Simplification-Prozess" wird von Rhapsody übernommen und transformiert die
+erzeugten UML-Diagramme in Code. Anhand von verschiedenen Ablaufdiagrammen kann
+auch gleich das Verhalten spezifiziert werden. So lassen sich leicht und schnell
+lauffähige Programme erstellen.\\
+\newline
+Da Rhapsody leider keine Möglichkeit bietet verschiedene Designpattern "von Haus
+aus" einzubinden müssen wir dies manuell tun. Wir greifen in den
+Simplification-Prozess ein und zwingen Rhapsody manuell unsere Implementierung
+zu verwenden.\\
+Hierfür greift der Code-Generator auf den, vom Benutzer eingestellten Helper zu.
+Hier werden die erzeugten Java-Klassen eingebunden und verarbeitet. Diese
+erzeugen dann die Simplification-Klassen Singelton, Observer und Guarded Call.
+Damit Rhapsody unsere User-Simplification verwendet, muss in den "Simplify
+Properties" eingestellt werden, dass unser User Simplifier benutzt werden soll.
+\cite{oldDoku}
 
-Das Testen ist der wichtigste und größte Teil des Projektes. Nachdem das Handbuch fertig geschrieben und somit die Anwendungsfälle definiert wurden, müssen dazu passende Testfälle entworfen werden. Aufgrund der vielen Unbekannten, die aus einem Projekt entstehen können, gibt es viele potentielle Fehlerquellen, die abgedeckt werden müssen. Nur wenn alle Tests bestanden werden gilt das Projekt als erfolgreich.\\
-Für die Durchführung gilt: Ein Test darf nur von den Gruppenmitgliedern durchgeführt werden, die den Testfall nicht geschrieben haben. Somit wird gleichzeitig die Qualität der Anwendungs- und der daraus abgeleiteten Testfälle deutlich.\\
-Für Testfälle, die nicht erfolgreich durchgeführt werden, ist am Ende des Projektzeitplans ein kurzer Korrekturzeitraum eingeplant. 
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.99\textwidth]{content/pictures/simplifier.png}
+	\label{pic:bild}
+	\caption{Simplification Ablauf \cite{oldDoku}}
+\end{figure}
+
+Damit Rhapsody weiß wo diese Java-Klassen liegen, muss man die ".hep" Datei
+anpassen. Diese befindet sich in unserem Fall unter dem jeweiligen
+Benutzer/IBM/\ldots/HFUSingletonPattern/model/HFUSingletonPattern_rpy. Hier ist
+die gesuchte .hep Datei.
+ 
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.99\textwidth]{content/pictures/hep.png}
+	\label{pic:bild}
+	\caption{Inhalt der .hep Datei}
+\end{figure} 
+
+\textbf{Wichtig} bei Änderungen in der Datei sollte Rhapsody neu gestartet
+werden. Hier ist das Problem das Rhapsody den Cache erst leeren muss und dies
+erfolgt leider nur nach einem Neustart. 
+\section{Testen}
+
+Das Testen ist der wichtigste und größte Teil des Projektes. Nachdem das Handbuch fertig
+geschrieben und somit die Anwendungsfälle definiert wurden, müssen dazu passende Testfälle
+entworfen werden. Aufgrund der vielen Unbekannten, die aus einem Projekt entstehen können,
+gibt es viele potentielle Fehlerquellen, die abgedeckt werden müssen. Nur wenn alle Tests 
+bestanden werden gilt das Projekt als erfolgreich.\\
+Für die Durchführung gilt: Die Gruppe die, die Beschreibung verfasst hat,
+schreibt auch die Testfälle dazu. Die andere Gruppe kümmert sich um die
+Implementierung der Pattern. So wird überprüft, ob die Beschreibung auch
+wirklich vollständig ist. Gleichzeitig wird so die Qualität der Anwendungs- und
+der daraus abgeleiteten Testfälle deutlich.\\
+Für Testfälle, die nicht erfolgreich durchgeführt werden, ist am Ende des Projektzeitplans
+ein kurzer Korrekturzeitraum eingeplant. 

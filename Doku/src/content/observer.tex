@@ -19,10 +19,15 @@ wird der Observer vom Subject informiert und dieser kann anschließend die Daten
 grafischen Oberfläche aktualisieren.\\
 \newline
 
-TODO content/pictures/Observer/observer01 einfügen
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.66\textwidth]{content/pictures/Observer/observer01.png}
+	\label{pic:bild}
+	\caption{Observer Diagramm \cite{paulObserver}}
+\end{figure}
 
 Es gibt drei verschiedene Arten um diese Funktionalität umzusetzen, wobei jede ihre Vor- und 
-Nachteile hat.\\
+Nachteile hat.\\ 
 \newline
 Push Notification\\
 Bei der Push Notification benachrichtigen die Subjects ihre Observer nur dahingehend, das 
@@ -41,12 +46,7 @@ deutlich mehr Rechenzeit von der Observerfunktion benötigt wird.\\
 \newline
 Ein Nachteil des Observer Patterns ist der hohe Aufwand bei Änderungen am
 Subject. Hier muss dann auch der Observer angepasst werden, was hohe Änderungskosten zur
-Folge hat.\\
-
-
-%TextQuelle
-%http://de.wikipedia.org/wiki/Beobachter_%28Entwurfsmuster%29
-%http://www.philipphauer.de/study/se/design-pattern/observer.php
+Folge hat.\cite{wikiObserver}
 
  \begin{lstlisting}
 class Subject {
