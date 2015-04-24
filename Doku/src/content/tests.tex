@@ -1,22 +1,22 @@
 \chapter{Tests}
 
-In diesem Kapitel werden zu den drei Design Pattern die jeweiligen Testfälle erläutert.
+In diesem Kapitel werden zu den drei Design Patterns die jeweiligen Testfälle erläutert.
 
 \section{Singleton}
 
-Um sicherzustellen dass die Singleton-Klasse richtig implementiert ist, müssen folgende Fälle überprüft werden: 
+Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, müssen folgende Testfälle überprüft werden: 
 
 \begin{description}
   \item[1.] \hfill \\
-  Als allererstes muss natürlich überprüft werden ob der Standart-Konstruktor der 	Singleton-Klasse aufrufbar ist. Sollte dies der Fall sein scheitert der Test, denn der Konstruktor sollte von außerhalb nicht aufrufbar, d.h. private sein.
+  Als allererstes muss überprüft werden, ob der Standard-Konstruktor der Singleton-Klasse aufrufbar ist. Sollte dies der Fall sein, scheitert der Test, denn der Konstruktor sollte von außerhalb nicht aufrufbar, d.h. private sein.
   \item[2.] \hfill \\
-  Ebenfalls überprüft werden muss, ob man von einem bestehenden Singleton-Objekt eine Kopie erzeugen kann. Ist dies möglich scheitert auch dieser Test, denn ein Singleton-Objekt darf nicht kopiert werden, der Copy-Konstruktor muss auch private sein.
+  Weiterhin muss überprüft werden, ob man von einem bestehenden Singleton-Objekt eine Kopie erzeugen kann. Ist dies möglich, scheitert dieser Test, denn ein Singleton-Objekt darf nicht kopiert werden. Der Copy-Konstruktor muss auch private sein.
   \item[3.] \hfill \\
-  Noch ein Fehler des Testes soll angezeigt werden wenn das Objekt zur Laufzeit zerstört werden will. Der Destruktor muss auch als private deklariert sein.
+  Ein weiterer Test ist, dass geprüft werden muss, ob es möglich ist, ein Singleton-Objekt zur Laufzeit zu zerstören. Das Singelton-Objekt wird erst am Ende der Programmlaufzeit freigegeben. Kann das Objekt schon vorher zerstört werden, schlägt der Test fehl. Der Destruktor muss auch als private deklariert sein.
   \item[4.] \hfill \\
   Möchte man von außerhalb ein Objekt der Singleton-Klasse implementieren, muss dies über die einzige öffentliche Methode der Singleton-Klasse "GetInstance()" passieren. Hierbei wird ein neues Objekt angelegt, sofern noch keins vorhanden war, ansonsten wird einfach das "alte" Objekt zurückgegeben.
   \item[5.] \hfill \\
-  Hat der Benutzer selbst eine GetInstance-Methode implementiert muss überprüft werden ob diese richtig implementiert wurde und auch nur ein Objekt erzeugt, und nach dem zweiten oder dritten Aufruf nur das erste Objekt zurückgibt. Ist dies nicht der Fall schlägt der Test fehl.
+  Hat der Benutzer selbst eine GetInstance-Methode implementiert, muss überprüft werden, ob diese richtig implementiert und auch nur ein Objekt erzeugt wurde, und nach dem zweiten oder dritten Aufruf nur das erste Objekt zurückgegeben wurde. Ist dies nicht der Fall, schlägt der Test fehl.
 \end{description}
 
 \section{Observer}
