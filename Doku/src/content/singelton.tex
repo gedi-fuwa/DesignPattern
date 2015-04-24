@@ -60,8 +60,5 @@ Natürlich kann man sich auch für eine andere Art von Singelton entscheiden, je
 
 Wenn der Entwickler ein UML-Diagramm in Rhapsody zeichnet und dabei eine bestimmte Klasse als Singleton implementieren möchte, setzt er bei dieser Klasse den Stereotype als Singleton. Möchte der Entwickler nun aus diesem Diagramm Code generieren, wird von Rhapsody wie in Kapitel 1 - Aufgabenbeschreibung erläutert Java-Klassen aufgerufen, die diese Klasse dann als Singleton Klasse in C++-Code erzeugen. 
 \\
-Hierbei wird als erstes der Konstruktor und der Kopierkonstruktor auf private gesetzt, da weder von "außerhalb" keine Instanz direkt über den new-Operator erzeugt werden kann, noch ein Objekt kopiert werden soll. Möchte man ein Objekt der Klasse angelegt werden soll, muss dies über die GetInstanz Methode geschehen. In dieser Methode wird zunächst geprüft ob es schon eine Instanz gibt, ist dies der Fall wird diese Instanz genutzt, wenn nicht wird eine neue Instanz erzeugt. 
-
-
-
+Hierbei wird als erstes der Konstruktor und der Kopierkonstruktor auf private gesetzt, da weder von "außerhalb" keine Instanz direkt über den new-Operator erzeugt werden kann, noch ein Objekt kopiert werden soll. Möchte man ein Objekt der Klasse angelegt werden soll, muss dies über die GetInstanz Methode geschehen. In dieser Methode wird zunächst geprüft ob es schon eine Instanz gibt, ist dies der Fall wird diese Instanz genutzt, wenn nicht wird eine neue Instanz erzeugt.
 
