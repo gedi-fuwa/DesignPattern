@@ -1,41 +1,63 @@
 \chapter{Guarded Call}
 
 \section{Allgemeine Informationen}
-Der "Guarded Call" ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt, dass der Code einer Methode nur von einem Thread gleichzeitig ausgeführt werden kann.\\
-Dabei überprüft der Thread vor dem Aufruf der Methode ob sie bereits von einem anderen Thread gesperrt ist. Ist dies der Fall, wird der Thread auf den Zustand \enquote{schlafend} gesetzt und der Scheduler widmet sich einem anderen Thread zu. Ist die Methode allerdings nicht gesperrt setzt der aktive Thread die Sperre selbst, um anschließend die Methode auszuführen. Nachdem die Methode verlassen wurde, wird die Sperre wieder aufgehoben.\\
-Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. die Referenz des Objekts zunächst zwischengespeichert, um anschließend die Sperre aufzuheben und schließlich den gespeicherten Wert zurückzugeben.\\
+Der \enquote{Guarded Call} ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt dass der Code einer Funktion nur von einem Thread gleichzeitig ausgeführt werden kann, was bedeutet dass die Threads beim Ausführen der Funktion aufeinander warten müssen. \cite[S. 190]{douglass2010design}
+\\
+Ein Thread überprüft dabei vor dem Aufruf der Methode ob sie bereits von einem anderen Thread gesperrt ist. Ist dies der Fall, wird der Thread auf den Zustand \enquote{schlafend} gesetzt und der Scheduler widmet sich einem anderen Thread zu. Ist die Methode allerdings nicht gesperrt setzt der aktive Thread die Sperre selbst, um anschließend die Methode auszuführen. Nachdem die Methode verlassen wurde, wird die Sperre wieder aufgehoben.
+\\
+Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. die Referenz des Objekts zunächst zwischengespeichert, um anschließend die Sperre aufzuheben und schließlich den gespeicherten Wert zurückzugeben.
+\\
 Nachdem die Sperre aufgehoben wurde werden die schlafenden Threads aufgeweckt, wobei einer der Threads nun erneut die Sperre setzen und die Methode aufrufen kann.
 
 \section{Umsetzung}
-Anm: muss beim Meeting noch disktutiert werden:\\
-1. ob das Mutex-Objekt evtl. von Rhapsody erstellt wird)\\
-2. Funktionsnamen: myFunction (Benutzer) und myFunctionWrapper (generiert) oder myFunctionGuarded (Benutzer) und myFunction (generiert)\\
+Um eine Funktion mit dem Guarded Call zu schützen kann der Benutzer der Funktion den Stereotyp \enquote{Guarded Call} hinzufügen. Anschließend wird bei der Codegenerierung für die Funktion ein Mutex-Objekt erstellt, dass den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt OMOSMutex zur Verfügung.
+\\
+Zudem wird der Code der Funktion in eine neue Funktion ausgelagert, während in der ursprünglichen Funktion zunächst versucht wird die Sperre des Mutex-Objekts zu setzen, um anschließend die Funktion mit dem ursprünglichen Code aufzurufen und daraufhin die Mutex zu entsperren.
 
- \begin{lstlisting}
-// (Funktion des Benutzers, die geschuetzt werden soll)
+\newpage
+
+\section{Beispiel}
+
+Funktionen die mit einem \enquote{Guarded Call} geschützt werden sollen:
+
+\begin{lstlisting}
 void myFunction() {
-
+	cout << "kritischer Code" << endl;
 }
 
-// (generierte Methode)
-void myFunctionWrapper() {
+int addiere(int a, int b) {
+	return a + b;
+}
+\end{lstlisting}
+
+Anschließend generierter Code:
+
+ \begin{lstlisting}
+
+OMOSMutex* myFunctionMutex = OMOSFactory::instance()->createOMOSMutex();
+
+void myFunction() {
 	myFunctionMutex.lock();
-	myFunction();
+	myFunctionGuarded();
 	myFunctionMutex.unlock();
 }
 
-bzw.
-
-int myFunction2() {
-	...
+void myFunctionGuarded() {
+	cout << "kritischer Code" << endl;
 }
 
-int myFunction2Wrapper() {
-	myFunction2Mutex.lock();
-	int temp = myFunction2();
-	myFunction2Mutex.unlock();
+OMOSMutex* addiereMutex = OMOSFactory::instance()->createOMOSMutex();
+
+int addiere(int a, int b) {
+	addiereMutex.lock();
+	int temp = addiereGuarded(a, b);
+	addiereMutex.unlock();
 
 	return temp;
+}
+
+int addiereGuarded(int a, int b) {
+	return a + b;
 }
 
 \end{lstlisting}
