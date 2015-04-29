@@ -1,24 +1,22 @@
 \chapter{Guarded Call}
 
 \section{Allgemeine Informationen}
-Der \enquote{Guarded Call} ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt dass der Code einer Funktion nur von einem Thread gleichzeitig ausgeführt werden kann, was bedeutet dass die Threads beim Ausführen der Funktion aufeinander warten müssen. \cite[S. 190]{douglass2010design}
+Der \enquote{Guarded Call} ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt dass die Methoden eines Objekts nur von einem Thread gleichzeitig ausgeführt werden können, was bedeutet dass weitere Threads mit dem Ausführen einer Methode warten müssen sollte bereits ein anderer Thread eine Methode des Objekts ausführen. \cite[S. 190]{douglass2010design}
 \\
-Ein Thread überprüft dabei vor dem Aufruf der Methode ob sie bereits von einem anderen Thread gesperrt ist. Ist dies der Fall, wird der Thread auf den Zustand \enquote{schlafend} gesetzt und der Scheduler widmet sich einem anderen Thread zu. Ist die Methode allerdings nicht gesperrt setzt der aktive Thread die Sperre selbst, um anschließend die Methode auszuführen. Nachdem die Methode verlassen wurde, wird die Sperre wieder aufgehoben.
+Ein Thread überprüft dabei vor dem Aufruf einer Methode ob das Objekt bereits von einem anderen Thread verwendet wird bzw. ob die Objektsperre bereits gesetzt ist. Ist dies der Fall, wird der Thread auf den Zustand \enquote{schlafend} gesetzt und der Scheduler widmet sich einem anderen Thread zu. Ist das Objekt allerdings nicht gesperrt setzt der aktive Thread die Sperre selbst, um anschließend die Methode auszuführen. Nachdem die Methode verlassen wurde, wird die Sperre wieder aufgehoben.
 \\
-Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. die Referenz des Objekts zunächst zwischengespeichert, um anschließend die Sperre aufzuheben und schließlich den gespeicherten Wert zurückzugeben.
+Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. die Referenz des Objekts zunächst zwischengespeichert, um anschließend die Sperre aufzuheben und schließlich den gespeicherten Wert zurückzugeben. Zudem wird im Falle einer Exception zuerst die Sperre aufgehoben um anschließend die Exception erneut zu werfen.
 \\
-Nachdem die Sperre aufgehoben wurde werden die schlafenden Threads aufgeweckt, wobei einer der Threads nun erneut die Sperre setzen und die Methode aufrufen kann.
+Nachdem die Sperre aufgehoben wurde werden die schlafenden Threads aufgeweckt, wobei einer der Threads nun erneut die Sperre setzen und eine Methode des Objekts aufrufen kann.
 
 \section{Umsetzung}
-Um eine Funktion mit dem Guarded Call zu schützen kann der Benutzer der Funktion den Stereotyp \enquote{Guarded Call} hinzufügen. Anschließend wird bei der Codegenerierung für die Funktion ein Mutex-Objekt erstellt, dass den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt OMOSMutex zur Verfügung.
+Um ein Objekt einer Klasse mit dem Guarded Call zu schützen kann der Benutzer den Stereotyp \enquote{Guarded Call} hinzufügen. Anschließend wird bei der Codegenerierung für die Klasse ein Mutex-Objekt erstellt, dass den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt \enquote{OMOSMutex} zur Verfügung, welches zusätzlich rekursives Sperren erlauben kann (für unsere Implementierung zwingend notwendig).
 \\
-Zudem wird der Code der Funktion in eine neue Funktion ausgelagert, während in der ursprünglichen Funktion zunächst versucht wird die Sperre des Mutex-Objekts zu setzen, um anschließend die Funktion mit dem ursprünglichen Code aufzurufen und daraufhin die Mutex zu entsperren.
-
-\newpage
+Zudem wird der Code der Methoden in jeweils eine neue Methode ausgelagert, während in der ursprünglichen Methode zunächst versucht wird die Sperre des Mutex-Objekts zu setzen, um anschließend die Methode mit dem ursprünglichen Code aufzurufen und daraufhin die Mutex zu entsperren.
 
 \section{Beispiel}
 
-Funktionen die mit einem \enquote{Guarded Call} geschützt werden sollen:
+Beispielfunktionen einer Klasse mit dem \enquote{Guarded Call}-Stereotyp:
 
 \begin{lstlisting}
 void myFunction() {
@@ -34,25 +32,37 @@ Anschließend generierter Code:
 
  \begin{lstlisting}
 
-OMOSMutex* myFunctionMutex = OMOSFactory::instance()->createOMOSMutex();
+OMOSMutex* mutex = OMOSFactory::instance()->createOMOSMutex();
 
 void myFunction() {
-	myFunctionMutex.lock();
-	myFunctionGuarded();
-	myFunctionMutex.unlock();
+	mutex.lock();
+
+	try {
+		myFunctionGuarded();
+	} catch (...) {
+		mutex.unlock();
+		throw;
+	}
+
+	mutex.unlock();
 }
 
 void myFunctionGuarded() {
 	cout << "kritischer Code" << endl;
 }
 
-OMOSMutex* addiereMutex = OMOSFactory::instance()->createOMOSMutex();
-
 int addiere(int a, int b) {
-	addiereMutex.lock();
-	int temp = addiereGuarded(a, b);
-	addiereMutex.unlock();
+	mutex.lock();
+	int temp;
 
+	try {
+		temp = addiereGuarded(a, b);
+	} catch (...) {
+		mutex.unlock();
+		throw;
+	}
+
+	mutex.unlock();
 	return temp;
 }
 
