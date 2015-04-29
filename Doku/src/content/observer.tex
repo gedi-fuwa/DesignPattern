@@ -46,7 +46,8 @@ deutlich mehr Rechenzeit von der Observerfunktion benötigt wird.\\
 \newline
 Ein Nachteil des Observer Patterns ist der hohe Aufwand bei Änderungen am
 Subject. Hier muss dann auch der Observer angepasst werden, was hohe Änderungskosten zur
-Folge hat.\cite{wikiObserver}
+Folge hat.\cite{wikiObserver}\\\\
+Aufgrund der höheren Flexibilität wollen wir eine Push-Notification zum Einsatz bringen.
 
  \begin{lstlisting}
 class Subject {
@@ -93,20 +94,23 @@ public:
 };
  
 class Observer {
-    void set(int value) = 0;
+public:
+	void update(){
+	
+	}
 };
  
 class ConcreteObserver1 : public Observer {
 public:
-    void update(int value) {
-        out << "Observer 1 with value = " << value << "\n";
+    void update() {
+        out << "Observer 1\n";
     }
 };
  
 class ConcreteObserver2 : public Observer {
 public:
     void update(int value) {
-        out << "Observer 2 with value = " << value << "\n";
+        out << "Observer 2\n";
     }
 };
  

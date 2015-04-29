@@ -4,7 +4,7 @@ In diesem Kapitel werden zu den drei Design Patterns die jeweiligen Testfälle e
 
 \section{Singleton}
 
-Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, müssen folgende Testfälle überprüft werden: 
+Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, müssen neben dem Behandeln der Compiler-Fehler und Warnungen folgende Testfälle manuell überprüft werden: 
 
 \begin{description}
   \item[1.] \hfill \\
@@ -16,7 +16,11 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   \item[4.] \hfill \\
   Möchte man von außerhalb ein Objekt der Singleton-Klasse implementieren, muss dies über die einzige öffentliche Methode der Singleton-Klasse "GetInstance()" passieren. Hierbei wird ein neues Objekt angelegt, sofern noch keins vorhanden war, ansonsten wird einfach das "alte" Objekt zurückgegeben.
   \item[5.] \hfill \\
-  Hat der Benutzer selbst eine GetInstance-Methode implementiert, muss überprüft werden, ob diese richtig implementiert und auch nur ein Objekt erzeugt wurde, und nach dem zweiten oder dritten Aufruf nur das erste Objekt zurückgegeben wurde. Ist dies nicht der Fall, schlägt der Test fehl.
+  Hat der Benutzer selbst eine GetInstance-Methode implementiert, muss Rhapsody bei der Erzeugung des Projektes einen Fehler ausgeben und die Erzeugung abbrechen.
+  \item[6.] \hfill \\
+  Nachdem das Singelton-Objekt mithilfe der getInstance()-Methode erzeugt wurde, liefert diese Methode stets die gleiche Instanz der Singleton-Klasse zurück. 
+   
+   
 \end{description}
 
 \section{Observer}
