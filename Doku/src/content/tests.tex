@@ -7,19 +7,70 @@ In diesem Kapitel werden zu den drei Design Patterns die jeweiligen Testfälle e
 Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, müssen neben dem Behandeln der Compiler-Fehler und Warnungen folgende Testfälle manuell überprüft werden: 
 
 \begin{description}
-  \item[1.] \hfill \\
+  \item[1.]
   Als allererstes muss überprüft werden, ob der Standard-Konstruktor der Singleton-Klasse aufrufbar ist. Sollte dies der Fall sein, scheitert der Test, denn der Konstruktor sollte von außerhalb nicht aufrufbar, d.h. private sein.
-  \item[2.] \hfill \\
+  \begin{itemize}
+  \item{Durchführung:}
+  In Rhapsody wurde versucht, eine Instanz der Singleton-Klasse zu erzeugen.
+  \item{Ergebnis:}
+  Der Build in Rhapsody ist fehlgeschlagen, da der Konstruktor private ist. Der
+  Test ist erfolgreich.
+  \end{itemize}
+  
+  \item[2.]
   Weiterhin muss überprüft werden, ob man von einem bestehenden Singleton-Objekt eine Kopie erzeugen kann. Ist dies möglich, scheitert dieser Test, denn ein Singleton-Objekt darf nicht kopiert werden. Der Copy-Konstruktor muss auch private sein.
-  \item[3.] \hfill \\
+  \begin{itemize}
+  	\item{Durchführung:}
+  	In Rhapsody wurde versucht, eine Instanz der Singleton-Klasse einer Variablen
+  	zuzuordnen.
+  	\item{Ergebnis:}
+  	Der Build in Rhapsody ist fehlgeschlagen, da der Kopierkonstruktor private
+  	ist.
+  	Der Test ist erfolgreich.
+  \end{itemize}
+  
+  \item[3.]
   Ein weiterer Test ist, dass geprüft werden muss, ob es möglich ist, ein Singleton-Objekt zur Laufzeit zu zerstören. Das Singelton-Objekt wird erst am Ende der Programmlaufzeit freigegeben. Kann das Objekt schon vorher zerstört werden, schlägt der Test fehl. Der Destruktor muss auch als private deklariert sein.
-  \item[4.] \hfill \\
+  \begin{itemize}
+  	\item{Durchführung:}
+  	In Rhapsody wurde versucht, ein Singleton-Object zur Laufzeit zu zerstören.
+  	\item{Ergebnis:}
+  	Der Build in Rhapsody ist fehlgeschlagen, da der Destruktor pirvate ist. Der
+  	Test ist erfolgreich.
+  \end{itemize}
+  
+  \item[4.]
   Möchte man von außerhalb ein Objekt der Singleton-Klasse implementieren, muss dies über die einzige öffentliche Methode der Singleton-Klasse "GetInstance()" passieren. Hierbei wird ein neues Objekt angelegt, sofern noch keins vorhanden war, ansonsten wird einfach das "alte" Objekt zurückgegeben.
-  \item[5.] \hfill \\
+  \begin{itemize}
+  	\item{Durchführung:}
+  	In Rhapsody wird zweimal eine Singleton-Instanz angefordert.
+  	\item{Ergebnis:}
+  	Der Build in Rhapsody ist erfolgreich. Beim ersten Anfordern einer
+  	Singleton-Insatnz wurde eine neue Instanz erstellt, beim zweiten Aufruf wurde
+  	die bestehende Instanz zurückgegeben.
+  	Der Test ist erfolgreich.
+  \end{itemize}
+  
+  \item[5.]
   Hat der Benutzer selbst eine GetInstance-Methode implementiert, muss Rhapsody bei der Erzeugung des Projektes einen Fehler ausgeben und die Erzeugung abbrechen.
-  \item[6.] \hfill \\
+  \begin{itemize}
+  \item{Durchführung:}
+  In Rhapsody wurde versucht, einer Klasse, die bereits eine getInstance()
+  Methode beinhaltet, den Stereotyp <<Singleton>> zuzuordnen.
+  \item{Ergebnis:}
+  Der Build in Rhapsody ist nicht fehlgeschlagen. Der Test ist nicht
+  erfolgreich.
+  \end{itemize}
+  
+  \item[6.]
   Nachdem das Singelton-Objekt mithilfe der getInstance()-Methode erzeugt wurde, liefert diese Methode stets die gleiche Instanz der Singleton-Klasse zurück. 
-   
+  \begin{itemize}
+  	\item{Durchführung:}
+  	In Rhapsody wurden mehrere Singleton-Instanzen angefordert.
+  	\item{Ergebnis:}
+  	Der Build in Rhapsody war erfolgreich. Bei jeder angeforderten Instanz
+  	wurde der gleiche Pointer zurückgegeben. Der Test ist erfolgreich.
+  \end{itemize} 
    
 \end{description}
 
