@@ -76,6 +76,25 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
 
 \section{Observer}
 
+Um sicherzustellen, dass das Observer Pattern richtig implementiert worden ist, müssen neben dem Behandeln der Compiler-Fehler und Warnungen folgende Testfälle manuell überprüft werden: 
+
+\begin{description}
+
+	\item[1.]
+	Hat der Benutzer bereits eine Klasse namens Observer oder Subject oder deren Methoden implementiert, muss Rhapsody die Simplification mit Fehlermeldung abbrechen.
+	
+	\item[2.]
+	Wenn der Benutzer nur eine der Observer/Subject Klassen modelliert hat, muss Rhapsody das Programm übersetzen, aber eine entsprechende Warnung ausgeben.
+	
+	\item[3.]
+	Mehrere Observer werden am Subject registriert, danach wird die Anzahl der registrierten Observer überprüft und muss mit der eingegebenen Anzahl übereinstimmen.
+
+	\item[4.]
+	Mehrere Observer werden am Subject registriert, danach wird eine bestimmte Anzahl wieder gelöscht. Die Anzahl der registrierten Observer muss den Anfangs registrierten minus den gelöschten Observern entsprechen. Desweiteren darf kein Fehler passieren, wenn versucht wird, einen Observer zu löschen, wenn gar keine Observer registriert wurden.
+
+\end{description}
+
+
 \section{Guarded Call}
 
 
