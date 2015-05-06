@@ -97,4 +97,54 @@ Um sicherzustellen, dass das Observer Pattern richtig implementiert worden ist, 
 
 \section{Guarded Call}
 
+Auch für das letzte Pattern sind einige Tests nötig. Viele verschiedene Faktoren
+haben Einfluss auf die Simplification.
+\begin{description}
 
+	\item[1.]
+	Die ersten Tests sind wie bei den anderen Pattern die Namenskonvention. Hier
+	wird überprüft ob der Name für das Attribut bereits vergeben ist. Wenn dies der
+	Fall ist, soll eine Meldung gezeigt werden. So kann der Benutzer den Namen
+	anpassen.
+	
+	\item[2.]
+	Wenn der Name des Attributs noch frei ist muss überprüft werden ob der Typ der
+	Variable auch richtig gesetzt ist. Da es sich hier um eine Variable vom Typ
+	OMOSMutex* handelt. Der Variable muss auch der richtige Wert zugewiesen
+	werden. Es soll die Rhapsody mutex verwendet werden. (siehe Beschreibung
+	Guarded Call)
+	
+	\item[3.]
+	Die Funktionen, die vom Benutzer erstellt wurden müssen in eine andere Funktion
+	kopiert werden. (Der Inhalt der Funktion) \\
+	Es muss geprüft werden, ob der Inhalt kopiert wurde und ob die Wrapper-Funktion
+	funktioniert.
+	
+	\item[4.]
+	Der Funktionsname muss geprüft werden. An die Benutzerfunktionen wird das Wort
+	"Guarded" dran gehängt. Wenn eine Funktion schon diese Endung hat, darf die
+	Funktion nicht weiter bearbeitet werden. Es folgt wieder eine Meldung an den
+	Benutzer.
+	
+	\item[5.]
+	Es muss geprüft werden, ob der Funktionsaufruf von einem try, catch Block
+	eingeschlossen wird. 
+	
+	\item[6.]
+	Da immer eine ganze Funktion gesperrt wird, muss geprüft werden ob diese
+	Funktion auch wirklich gesperrt ist. Kein anderer Thread darf Zugriff auf die
+	gesperrte Funktion haben. 
+	
+	\item[7.]
+	Ein weiterer wichtiger Test ist die Prüfung der Rekursivität der Rhapsody
+	mutex. schreib da bitte noch was dazu eric\ldots
+	
+	\item[8.]
+	Funktionen mit Rückgabewerte müssen geprüft werden. Hier gibt es zwei Fälle.
+	Primitive Datentypen und Objekte. Hier vllt auch noch kurz was eric\ldots
+	
+	
+	
+	
+	
+\end{description}
