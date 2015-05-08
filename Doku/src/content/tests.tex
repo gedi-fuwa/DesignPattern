@@ -16,7 +16,12 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   Der Build in Rhapsody ist fehlgeschlagen, da der Konstruktor private ist. Der
   Test ist erfolgreich.
   \end{itemize}
-  
+  \begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.99\textwidth]{content/pictures/tests/singleton/error1}
+	\label{pic:bild}
+	\caption{Fehler beim Zugriff auf privaten Konstruktor}
+\end{figure}
   \item[2.]
   Weiterhin muss überprüft werden, ob man von einem bestehenden Singleton-Objekt eine Kopie erzeugen kann. Ist dies möglich, scheitert dieser Test, denn ein Singleton-Objekt darf nicht kopiert werden. Der Copy-Konstruktor muss auch private sein.
   \begin{itemize}
@@ -29,6 +34,13 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   	Der Test ist erfolgreich.
   \end{itemize}
   
+ \begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.99\textwidth]{content/pictures/tests/singleton/KopierError1}
+	\label{pic:bild}
+	\caption{Fehler bei Kopier-Konstruktor}
+\end{figure}
+  
   \item[3.]
   Ein weiterer Test ist, dass geprüft werden muss, ob es möglich ist, ein Singleton-Objekt zur Laufzeit zu zerstören. Das Singelton-Objekt wird erst am Ende der Programmlaufzeit freigegeben. Kann das Objekt schon vorher zerstört werden, schlägt der Test fehl. Der Destruktor muss auch als private deklariert sein.
   \begin{itemize}
@@ -38,7 +50,13 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   	Der Build in Rhapsody ist fehlgeschlagen, da der Destruktor pirvate ist. Der
   	Test ist erfolgreich.
   \end{itemize}
-  
+  \begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.99\textwidth]{content/pictures/tests/singleton/deleteError1}
+	\label{pic:bild}
+	\caption{Fehler beim Löschen des Objekts}
+\end{figure}
+
   \item[4.]
   Möchte man von außerhalb ein Objekt der Singleton-Klasse implementieren, muss dies über die einzige öffentliche Methode der Singleton-Klasse "GetInstance()" passieren. Hierbei wird ein neues Objekt angelegt, sofern noch keins vorhanden war, ansonsten wird einfach das "alte" Objekt zurückgegeben.
   \begin{itemize}
@@ -61,7 +79,13 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   Der Build in Rhapsody ist nicht fehlgeschlagen. Der Test ist nicht
   erfolgreich.
   \end{itemize}
-  
+  \begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.999\textwidth]{content/pictures/tests/singleton/getinstanceerror1}
+	\label{pic:bild}
+	\caption{Fehler bei vorhandener getInstance-Methode}
+\end{figure}
+
   \item[6.]
   Nachdem das Singelton-Objekt mithilfe der getInstance()-Methode erzeugt wurde, liefert diese Methode stets die gleiche Instanz der Singleton-Klasse zurück. 
   \begin{itemize}
@@ -71,7 +95,13 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   	Der Build in Rhapsody war erfolgreich. Bei jeder angeforderten Instanz
   	wurde der gleiche Pointer zurückgegeben. Der Test ist erfolgreich.
   \end{itemize} 
-   
+  \begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{content/pictures/tests/singleton/HappyDay1}
+	\label{pic:bild}
+	\caption{Happy-Day bei der Simplification von Singleton}
+\end{figure}
+ 
 \end{description}
 
 \section{Observer}
@@ -142,9 +172,6 @@ haben Einfluss auf die Simplification.
 	\item[8.]
 	Funktionen mit Rückgabewerte müssen geprüft werden. Hier gibt es zwei Fälle.
 	Primitive Datentypen und Objekte. Hier vllt auch noch kurz was eric\ldots
-	
-	
-	
 	
 	
 \end{description}
