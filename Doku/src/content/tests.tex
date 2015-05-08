@@ -132,46 +132,28 @@ haben Einfluss auf die Simplification.
 \begin{description}
 
 	\item[1.]
-	Die ersten Tests sind wie bei den anderen Pattern die Namenskonvention. Hier
-	wird überprüft ob der Name für das Attribut bereits vergeben ist. Wenn dies der
-	Fall ist, soll eine Meldung gezeigt werden. So kann der Benutzer den Namen
-	anpassen.
+	Bei den ersten Tests wird wie bei den anderen Design Pattern überprüft ob die Namenskonvention eingehalten werden. Im Falle des Guarded Call wird getestet ob der Name für das Mutex-Attribut bereits vergeben ist. Wenn dies der Fall ist, soll eine Meldung gezeigt werden, damit der Benutzer daraufhin den Namen anpassen kann.
 	
 	\item[2.]
-	Wenn der Name des Attributs noch frei ist muss überprüft werden ob der Typ der
-	Variable auch richtig gesetzt ist. Da es sich hier um eine Variable vom Typ
-	OMOSMutex* handelt. Der Variable muss auch der richtige Wert zugewiesen
-	werden. Es soll die Rhapsody mutex verwendet werden. (siehe Beschreibung
-	Guarded Call)
+	Wenn der vorgesehene Name des Mutex-Attributs noch frei ist muss überprüft werden ob der Datentyp der Variable auch dem gewünschten Typ \textit{OMOSMutex*} (plattformunabhängige Mutex von Rhapsody, siehe Beschreibung von Guarded Call) entspricht. Ebenso muss getestet werden ob das Attribut korrekt initialisiert wird.
 	
 	\item[3.]
-	Die Funktionen, die vom Benutzer erstellt wurden müssen in eine andere Funktion
-	kopiert werden. (Der Inhalt der Funktion) \\
-	Es muss geprüft werden, ob der Inhalt kopiert wurde und ob die Wrapper-Funktion
-	funktioniert.
+	Die Funktionsnamen müssen geprüft werden. An den Benutzerfunktionen wird das Wort "Guarded" angehängt. Wenn eine Funktion schon diese Endung hat, darf die Funktion nicht weiter bearbeitet werden und es folgt wieder eine Meldung an den Benutzer.
 	
 	\item[4.]
-	Der Funktionsname muss geprüft werden. An die Benutzerfunktionen wird das Wort
-	"Guarded" dran gehängt. Wenn eine Funktion schon diese Endung hat, darf die
-	Funktion nicht weiter bearbeitet werden. Es folgt wieder eine Meldung an den
-	Benutzer.
+	Es muss getestet werden ob der Funktionsinhalt der Funktionen, die vom Benutzer erstellt wurden, vollständig in jeweils eine neue Funktion kopiert wurde. Ebenso muss überprüft werden ob in der ursprünglichen Funktion die Wrapper-Funktion richtig erstellt wird.
 	
 	\item[5.]
-	Es muss geprüft werden, ob der Funktionsaufruf von einem try, catch Block
-	eingeschlossen wird. 
+	Es muss geprüft werden, ob der Funktionsaufruf in der Wrapper-Funktion korrekt von einem try-catch Block eingeschlossen wird. Dabei muss getestet werden ob die in der aufgerufenen Funktion geworfene Exception abgefangen, die Mutex entsperrt und anschließend die abgefangene Exception erneut geworfen wird.
 	
 	\item[6.]
-	Da immer eine ganze Funktion gesperrt wird, muss geprüft werden ob diese
-	Funktion auch wirklich gesperrt ist. Kein anderer Thread darf Zugriff auf die
-	gesperrte Funktion haben. 
+	Da immer alle Funktionen des Objekts gesperrt werden muss überprüft werden, ob weitere Threads vor dem Ausführen einer geschützten Funktion auch tatsächlich gesperrt werden sollte bereits ein Thread sich in einer geschützten Funktion befinden.
 	
 	\item[7.]
-	Ein weiterer wichtiger Test ist die Prüfung der Rekursivität der Rhapsody
-	mutex. schreib da bitte noch was dazu eric\ldots
+	Ebenso sollte überprüft werden ob es sich beim Mutexobjekt um eine rekursive Mutex handelt. Dabei muss getestet werden, ob ein Thread sich selbst ausschließt wenn innerhalb einer geschützten Funktion eine Wrapper-Funktion aufgerufen wird.
 	
 	\item[8.]
-	Funktionen mit Rückgabewerte müssen geprüft werden. Hier gibt es zwei Fälle.
-	Primitive Datentypen und Objekte. Hier vllt auch noch kurz was eric\ldots
+	Es muss getestet werden ob der Datentyp des Rückgabewerts bei der Wrapper-Funktion und der geschützten Funktion gleich sind und ob beide Funktionen den gleichen Wert zurückgeben.
 	
 	
 \end{description}
