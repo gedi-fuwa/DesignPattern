@@ -157,7 +157,7 @@ haben Einfluss auf die Simplification.
 	Die Funktionsnamen müssen geprüft werden. An den Benutzerfunktionen wird das Wort "Guarded" angehängt. Wenn eine Funktion schon diese Endung hat, darf die Funktion nicht weiter bearbeitet werden und es folgt wieder eine Meldung an den Benutzer.
 	
 	\item[4.]
-	Es muss getestet werden ob der Funktionsinhalt der Funktionen, die vom Benutzer erstellt wurden, vollständig in jeweils eine neue Funktion kopiert wurde. Ebenso muss überprüft werden ob in der ursprünglichen Funktion die Wrapper-Funktion richtig erstellt wird.
+	Es muss getestet werden ob die Funktionen, die vom Benutzer erstellt wurden, korrekt umbenannt und auf private gesetzt wurden. Ebenso muss überprüft werden ob in der ursprünglichen Funktion die Wrapper-Funktion richtig erstellt wird.
 	
 	\item[5.]
 	Es muss geprüft werden, ob der Funktionsaufruf in der Wrapper-Funktion korrekt von einem try-catch Block eingeschlossen wird. Dabei muss getestet werden ob die in der aufgerufenen Funktion geworfene Exception abgefangen, die Mutex entsperrt und anschließend die abgefangene Exception erneut geworfen wird.
