@@ -114,13 +114,29 @@ Um sicherzustellen, dass das Observer Pattern richtig implementiert worden ist, 
 	Hat der Benutzer bereits eine Klasse namens Observer oder Subject oder deren Methoden implementiert, muss Rhapsody die Simplification mit Fehlermeldung abbrechen.
 	
 	\item[2.]
-	Wenn der Benutzer nur eine der Observer/Subject Klassen modelliert hat, muss Rhapsody das Programm übersetzen, aber eine entsprechende Warnung ausgeben.
+	Wenn der Benutzer nur einen der Observer/Subject Stereotypen zugewiesen hat, muss Rhapsody das Programm übersetzen, aber eine entsprechende Warnung ausgeben.
 	
 	\item[3.]
-	Mehrere Observer werden am Subject registriert, danach wird die Anzahl der registrierten Observer überprüft und muss mit der eingegebenen Anzahl übereinstimmen.
+	Eine bestimmte Anzahl Observer werden am Subject registriert, danach wird die Anzahl der registrierten Observer überprüft. Diese Anzahl muss mit der eingegebenen Anzahl übereinstimmen. \\
+	Dadurch wird sichergestellt, dass alle Observer registriert wurden.
 
 	\item[4.]
-	Mehrere Observer werden am Subject registriert, danach wird eine bestimmte Anzahl wieder gelöscht. Die Anzahl der registrierten Observer muss den Anfangs registrierten minus den gelöschten Observern entsprechen. Desweiteren darf kein Fehler passieren, wenn versucht wird, einen Observer zu löschen, wenn gar keine Observer registriert wurden.
+	Mehrere Observer werden am Subject registriert, danach wird eine bestimmte Anzahl wieder gelöscht. Die Anzahl der registrierten Observer muss den Anfangs registrierten minus den gelöschten Observern entsprechen.
+	
+	\item[5.]
+	Es wird versucht, einen Observer zu löschen, ohne dass vorher ein Observer am Subject registriert wurde.Hierbei darf kein Fehler passieren.
+	 
+	\item[6.]
+	An einem Subject werden mehrere Observer registriert. Diese beinhalten eine einfache Implementierung, die einen Text auf der Konsole ausgeben. Dadurch kann leicht überprüft werden, ob alle Observer durch die notify()-Funktion benachrichtigt und die jeweiligen Update()-Funktion aufgerufen wurde.
+	
+	\item[7.]
+	Es wird ein Modell angelegt, bei dem die Methoden register/unregister und update schon im subject vorhanden sind. Beim Versuch der Simplification muss Rhapsody hier einen Fehler ausgeben und den Vorgang abbrechen.
+	
+	\item[8.]
+	Es wird ein Modell angelegt, bei dem die Klassen Object und Subject manuell hinzugefügt wurden. Beim Versuch der Simplification muss Rhapsody hier einen Fehler ausgeben und den Vorgang abbrechen.
+	
+	\item[9.]
+	Es wird zweimal hintereinander eine Simplification auf ein gültiges Modell angewandt. Beim zweiten Duchgang soll Rhapsody einen Text ausgeben, der darüber informiert, dass die Klassen Subject und Observer bereits simplifiziert wurden, und bei dem aktuellen Vorgang ignoriert werden.
 
 \end{description}
 

@@ -95,9 +95,7 @@ public:
  
 class Observer {
 public:
-	void update(){
-	
-	}
+	virtual void update() = 0;
 };
  
 class ConcreteObserver1 : public Observer {
@@ -140,10 +138,9 @@ und zum anderen das Subject. Wenn eine Klasse als Stereotyp Observer deklariert 
 zugehörige Interface erstellt und in das bestehende Projekt eingefügt, mit dem Stereotyp Subject 
 wird ebenso verfahren.\\
 \newline
-Um eine fehlerfreie Umsetzung zu realisieren wurde festgelegt, das ein Benutzer im Lauf seiner 
-Softwareentwicklung keine reservierten Klassen- und Methodennamen benutzen darf. So dürfen 
-keine Klassen existieren die Observer oder Subject heißen. Darüber hinaus dürfen auch keine 
-Methoden aus diesen zwei Interfaces vom Benutzer manuell im Voraus implementiert werden. 
+Um eine fehlerfreie Umsetzung zu realisieren wurde festgelegt, dass ein Benutzer im Lauf seiner 
+Softwareentwicklung keine reservierten Klassen- und Methodennamen benutzen darf. Falls bereits Klassen existieren, die Observer/Subject heißen, muss überprüft werden, ob es sich dabei um unsere Implementierung aus einer früheren Simplification handelt oder ob der Nutzer diese selbst angelegt hat. Falls es sich um unsere Klassen handelt, soll ein Infotext ausgegeben werden; die Simplification soll die existierenden Klassen dann ignorieren und nicht überschreiben. Falls es sich um vom Nutzer angelegte Klassen handelt, soll eine Fehlermeldung ausgegeben und die Simplification abgebrochen werden.
+Gleiches gilt für bereits implementierte Methoden. 
 Diese Richtlinien werden bei der Übersetzung des Programms überprüft und im Fehlerfall 
 entsprechende Fehlermeldungen generiert und die Übersetzung abgebrochen.\\
 \newline
@@ -155,9 +152,7 @@ werden.\\
 Das Subject Interface besitzt drei öffentliche Methoden. Mit der Methode register_Observer 
 können Observer für dieses Subject in eine Liste hinzugefügt werden, und mit delete_Observer 
 wieder entfernt. Diese zwei Methoden werden vom Interface automatisch vollständig zur Verfügung
-gestellt. Die Methode notify_Observer wird leer implementiert, da der Benutzer über die 
-Funktionalität selbst entscheiden muss, zum Beispiel welche Attribute überwacht werden 
-sollen und welche nicht.\\
+gestellt. Die Methode notify_Observer sendet eine Update-Benachrictigung an die registrierten Observer.\\
 \newline
 Wird dieses Design Pattern verwendet, ist es zwar durchaus möglich, dass ein Benutzer ein 
 Observer ohne ein Subject implementiert oder umgekehrt. Jedoch macht die Verwendung 
