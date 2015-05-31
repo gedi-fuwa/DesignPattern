@@ -112,32 +112,92 @@ Um sicherzustellen, dass das Observer Pattern richtig implementiert worden ist, 
 
 	\item[1.]
 	Hat der Benutzer bereits eine Klasse namens Observer oder Subject oder deren Methoden implementiert, muss Rhapsody die Simplification mit Fehlermeldung abbrechen.
+	\begin{itemize}
+	  	\item{Durchführung:}
+	  		In Rhapsody wurde versucht, eine Simplification durchzuführen, bei der
+	  		Observer und Subject bereits vorhanden sind. Die Observer-Klasse besitzt
+	  		bereits eine Funktion update().
+	  	\item{Ergebnis:}
+	  		Test fehlgeschlagen:
+	  		Es wird lediglich eine Meldung ausgegeben: "`Funktion update ist
+	  		bereits vorhanden!"', der Build läuft aber ohne Fehler zu Ende.
+	\end{itemize}
 	
 	\item[2.]
 	Wenn der Benutzer nur einen der Observer/Subject Stereotypen zugewiesen hat, muss Rhapsody das Programm übersetzen, aber eine entsprechende Warnung ausgeben.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Es wurde versucht, eine Simplification durchzuführen, bei dem nur die
+			Observerklasse zugewiesen wurde.
+  		\item{Ergebnis:}
+			-
+  	\end{itemize}
 	
 	\item[3.]
 	Eine bestimmte Anzahl Observer werden am Subject registriert, danach wird die Anzahl der registrierten Observer überprüft. Diese Anzahl muss mit der eingegebenen Anzahl übereinstimmen. \\
 	Dadurch wird sichergestellt, dass alle Observer registriert wurden.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Drei Observer wurden erstellt und sollen sich am Subject registrieren.
+  		\item{Ergebnis:}
+			-
+  	\end{itemize}
 
 	\item[4.]
 	Mehrere Observer werden am Subject registriert, danach wird eine bestimmte Anzahl wieder gelöscht. Die Anzahl der registrierten Observer muss den Anfangs registrierten minus den gelöschten Observern entsprechen.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Drei Observer wurden erstellt und registriert, danach wird ein Observer aus
+			dem Subject gelöscht.
+  		\item{Ergebnis:}
+			-
+  	\end{itemize}
 	
 	\item[5.]
-	Es wird versucht, einen Observer zu löschen, ohne dass vorher ein Observer am Subject registriert wurde.Hierbei darf kein Fehler passieren.
-	 
+	Es wird versucht, einen Observer zu löschen, ohne dass vorher ein Observer am
+	Subject registriert wurde. Hierbei darf kein Fehler passieren.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Ein Observer und ein Subject wurden erstellt, der Observer wurde aber nicht
+			registriert. Danach wird versucht, einen Observer im Subject zu löschen.
+  		\item{Ergebnis:}
+			-
+  	\end{itemize}
+  	
 	\item[6.]
 	An einem Subject werden mehrere Observer registriert. Diese beinhalten eine einfache Implementierung, die einen Text auf der Konsole ausgeben. Dadurch kann leicht überprüft werden, ob alle Observer durch die notify()-Funktion benachrichtigt und die jeweiligen Update()-Funktion aufgerufen wurde.
-	
+	\begin{itemize}
+  		\item{Durchführung:}
+			Zwei Observer werden erstellt und registriert, die update()-Funktion wird
+			mit einer einfachen Konsolenausgabe implementiert. Das Subject ruft danach
+			die notify() FUnktion auf.
+  		\item{Ergebnis:}
+			-
+  	\end{itemize}
+  	
 	\item[7.]
-	Es wird ein Modell angelegt, bei dem die Methoden register/unregister und update schon im subject vorhanden sind. Beim Versuch der Simplification muss Rhapsody hier einen Fehler ausgeben und den Vorgang abbrechen.
+	Es wird ein Modell angelegt, bei dem die Methoden
+	register_observer/unregister_observer und update schon im subject vorhanden
+	sind.
+	Beim Versuch der Simplification muss Rhapsody hier einen Fehler ausgeben und den Vorgang abbrechen.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Ein Subject wird angelegt, bei dem die Methoden bereits vorhanden sind.
+			Danach wird eine Simplification durchgeführt.
+  		\item{Ergebnis:}
+			Test fehlgeschlagen: Rhapsody meldet, dass die Funktionsnamen bereits
+			vorhanden sind, die Simplification wird aber trotzdem abgeschlossen.
+  	\end{itemize}
 	
 	\item[8.]
-	Es wird ein Modell angelegt, bei dem die Klassen Object und Subject manuell hinzugefügt wurden. Beim Versuch der Simplification muss Rhapsody hier einen Fehler ausgeben und den Vorgang abbrechen.
-	
-	\item[9.]
 	Es wird zweimal hintereinander eine Simplification auf ein gültiges Modell angewandt. Beim zweiten Duchgang soll Rhapsody einen Text ausgeben, der darüber informiert, dass die Klassen Subject und Observer bereits simplifiziert wurden, und bei dem aktuellen Vorgang ignoriert werden.
-
+	\begin{itemize}
+  		\item{Durchführung:}
+			Es wird ein gültiges Modell erstellt und simplifiziert. Danach wird versucht,
+			eine weitere Simplification durchzuführen.
+  		\item{Ergebnis:}
+			-
+  	\end{itemize} 
 \end{description}
 
 
