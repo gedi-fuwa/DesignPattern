@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sun May 31 17:56:44 CEST 2015
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=main.tex
+outputFile=Benutzerhandbuch.pdf
+langSpell=de
+markDer=true
+srcDir=src/

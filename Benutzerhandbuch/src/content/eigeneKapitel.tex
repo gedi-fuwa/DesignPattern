@@ -1,0 +1,25 @@
+\chapter{Design Patterns}
+
+\section{Singleton}
+
+\section{Observer}
+
+\subsection{Verwendung}
+
+Die Verwendung der Observer und Subject Klassen ist denkbar einfach: Hierzu muss
+der Nutzer mindestens zwei Klassen im Klassendiagramm erstellen, denen dann die
+Stereotypen Observer und Subject zugewiesen werden. Zwischen dem Observer und
+den Subjects muss eine Assoziation modelliert werden. \\
+Die update()-Funktionen der Observer muss selbst geschrieben werden, damit die
+Observer auch eine Aktion ausführen können, wenn das Subject die notify-Funktion ausführt.
+
+\subsubsection{Beispiel}
+
+\subsection{Zu beachten}
+
+Es dürfen keine Klassen oder Methoden vorhanden sein, die bereits Observer oder
+Subject bzw. update oder register_observer delete_observer heißen.\\
+
+Falls nur eine der benötigten Stereotypen zugewiesen wurde, gibt Rhapsody eine
+entsprechende Meldung aus, erlaubt aber die Simplification.\\
+
