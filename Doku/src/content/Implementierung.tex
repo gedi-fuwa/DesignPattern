@@ -20,3 +20,7 @@ konnten wir die User-Simplification des letzten Semesters nicht verwenden.
 
 
 \section{Guarded Call}
+
+
+\section{Ungültige Benutzerklasse}
+Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Pattern (bspw. eine bereits vorhandene, vom Benutzer erstellte getInstance Methode beim Singleton Design Pattern) sollte der Code-Generierungsprozess abgebrochen werden. Dabei wird die \textit{TBD} Methode der Klasse AbstractSimplifier aufgerufen, bei welcher fehlerhafter C++ Code generiert wurde, wodurch wiederum Rhapsody gezwungen wird den Simplification-Prozess abzubrechen.
