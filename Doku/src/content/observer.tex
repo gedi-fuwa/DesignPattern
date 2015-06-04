@@ -50,82 +50,167 @@ Folge hat.\cite{wikiObserver}\\\\
 Aufgrund der höheren Flexibilität wollen wir eine Push-Notification zum Einsatz bringen.
 
  \begin{lstlisting}
-class Subject {
-public:
-    void register_Observer(
-    	shared_ptr<Observer> observer) = 0;
-    void delete_Observer(
-    	shared_ptr<Observer> observer) = 0;
-    void notify_Observer() = 0;
+#include <list> 
+#include "ObserverInterface.h" 
+  
+using namespace std; 
+  
+class Subject 
+{ 
+  
+public: 
+    void attach(ObserverInterface* observer); 
+    void detach(ObserverInterface* observer); 
+    void notify(); 
+  
+private: 
+    list<ObserverInterface*> observers; 
+  
+  
+protected: 
+    // Durch protected-Konstruktor wird diese Klasse abstrakt 
+    Subject() {}; 
+  
 };
- 
-class ConcreteSubjekt : public Subject {
-    vector<shared_ptr<Observer>> _observer;
-    int   _value;
-public:
-    ConcreteSubjekt() : _value(0) {}
- 
-    void register_Observer(
-    	shared_ptr<Observer> observer) {
-    	
-        _observer.add(observer);
-    }
-    void delete_Observer(shared_ptr<Observer>
-    	observer) {
-    	
-        auto pos = find_if(_observer.begin(), _observer.end(),
-        	 [&](shared_ptr<Observer> const& b) { 
-        	 	return *b == *observer;
-         });
-          
-         if (pos != _observer.end()) 
-         	_observer.erase(pos);
-    }
-    void notify_Observer() {
-        for (auto& beo : _observer) {
-            beo->update(_value);
-        }
-    }
- 
-    void setValue(int value) {
-        _value = value;
-        notify_Observer();
-    }
+
+// ObserverInterface.h // 
+class ObserverInterface 
+{ 
+public: 
+    virtual void update() = 0; 
 };
- 
-class Observer {
-public:
-	virtual void update() = 0;
-};
- 
-class ConcreteObserver1 : public Observer {
-public:
-    void update() {
-        out << "Observer 1\n";
-    }
-};
- 
-class ConcreteObserver2 : public Observer {
-public:
-    void update(int value) {
-        out << "Observer 2\n";
-    }
-};
- 
-int main() {
-    shared_ptr<Subject> oneSubject(new KonkretesSubjekt());
-    shared_ptr<Observer> observer1(
-    		new ConcreteObserver1());
-    shared_ptr<Observer> observer2(
-    		new ConcreteObserver2());
- 
-    oneSubject->register_Observer(observer1);
-    oneSubject->register_Observer(observer2);
- 
-    oneSubject->setValue(10);
-    oneSubject->delete_Observer(observer1);
-    oneSubject->setValue(20);
+
+// SubjectImpl.cpp // 
+#include "Subject.h" 
+#include "ObserverInterface.h" 
+  
+void Subject::attach(ObserverInterface* observer) 
+{ 
+    observers.push_back(observer); 
+} 
+  
+  
+void Subject::detach(ObserverInterface *observer) 
+{ 
+    observers.remove(observer); 
+} 
+  
+  
+void Subject::notify() 
+{ 
+    list<ObserverInterface*>::iterator iter = observers.begin(); 
+    for ( ; iter != observers.end(); iter++ ) 
+    { 
+        (*iter)->update(); 
+        
+    }       
 }
+
+ // ConcreteSubject.h // 
+#include <string> 
+#include "Subject.h" 
+  
+using namespace std; 
+  
+class ConcrecteSubject : public Subject 
+{ 
+  
+private: 
+    string data; 
+  
+public: 
+    void setData(string _data) { data = _data; } 
+    string getData() { return data; } 
+    ConcreteSubject() : Subject() {} 
+};
+
+ // ConcreteObserver.h // 
+#include <string> 
+#include "ObserverInterface.h" 
+#include "ConcreteSubject.h" 
+  
+using namespace std; 
+class ConcreteObserver : public ObserverInterface 
+{ 
+  
+private: 
+    string name; 
+    string observerState; 
+    ConcreteSubject* subject; // Dieses Objekt haelt die Daten (=notifier) 
+  
+public: 
+    void update(); 
+    void setSubject(ConcreteSubject* subj); 
+    ConcreteSubject* getSubject(); 
+    ConcreteObserver(ConcreteSubject* subj, string name); 
+  
+};
+
+
+ // ConcreteObserverImpl.cpp // 
+#include <iostream> 
+#include "ConcreteObserver.h" 
+  
+using namespace std; 
+  
+  
+// Daten anzeigen 
+void ConcreteObserver::update() 
+{ 
+    observerState = subject->getData(); 
+    cout << "Observer " << name << " hat neuen Zustand: " << observerState << endl; 
+} 
+  
+void ConcreteObserver::setSubject(ConcreteSubject* obj) 
+{ 
+    subject = obj; 
+} 
+  
+ConcreteSubject* ConcreteObserver::getSubject() 
+{ 
+    return subject; 
+} 
+  
+  
+ConcreteObserver::ConcreteObserver(ConcreteSubject* subj, string n) 
+{ 
+    name = n; 
+    subject = subj; 
+}
+
+ // Main.cpp // 
+#include "ObserverInterface.h" 
+#include "ConcreteSubject.h" 
+#include "ConcreteObserver.h" 
+  
+  
+int main() 
+{ 
+  
+    // Das Objekt haelt alle Daten (=notfier = subject) 
+    ConcreteSubject* subj = new ConcretSubject(); 
+    
+    ObserverInterface* obs1 = new ConcreteObserver(subj,"A"); 
+    ObserverInterface* obs2 = new ConcreteObserver(subj,"B"); 
+  
+    // Observer(=views) an Subjekt anhaengen (attachen) 
+    subj->attach(obs1); 
+    subj->attach(obs2); 
+  
+    // Daten aendern und Observer informieren (notify) 
+    subj->setData("TestData"); 
+    subj->notify(); 
+  
+       /* 
+        Ausgabe: 
+        Observer A hat neuen Zustand: TestData 
+        Observer B hat neuen Zustand: TestData 
+       */ 
+  
+    return 0; 
+  
+}
+
 \end{lstlisting}
 
 \section{Umsetzung}
