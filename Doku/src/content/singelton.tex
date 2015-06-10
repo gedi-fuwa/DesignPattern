@@ -64,5 +64,13 @@ Wenn der Entwickler ein UML-Diagramm in Rhapsody zeichnet und dabei eine bestimm
 \\
 Hierbei wird als erstes der Konstruktor und der Kopierkonstruktor auf private gesetzt, da weder von "außerhalb" keine Instanz direkt über den new-Operator erzeugt werden kann, noch ein Objekt kopiert werden soll. Möchte man ein Objekt der Klasse anlegen, muss dies über die GetInstanz Methode geschehen. In dieser Methode wird zunächst geprüft ob es schon eine Instanz gibt, ist dies der Fall wird diese Instanz genutzt, wenn nicht wird eine neue Instanz erzeugt.\\
 
-Verwendet der Nutzer bereits eine oder mehrere Funktionen mit einem Namen, der im Singleton-Design Pattern bereits vorhanden ist, so wird die Erzeugung mit einer Fehlermeldung abgebrochen.
 
+Falls der Nutzer eine Simplifizierung bei einem Projekt startet, bei welchem
+bereits Code vorhanden ist, so wird zum einen überprüft, ob die
+getInstance-Methode oder das mInstance Attribut vorhanden sind, zum anderen, ob
+die Funktion/das Attribut von einer vorherigen Simplifizierung stammt. Ist dies
+der Fall, wird die Simplifizierung normal durchgeführt und das Attribut bzw. die
+Funktion überschrieben, da davon ausgegangen werden kann, dass der vorhandene
+Code mit dem nun neu generierten übereinstimmt. \\
+Sind Funktion oder Attribut vorhanden, aber stammen nicht aus einer vorherigen
+Simplifizierung wird ein Fehler generiert.
