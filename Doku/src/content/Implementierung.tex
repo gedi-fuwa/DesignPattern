@@ -15,12 +15,67 @@ konnten wir die User-Simplification des letzten Semesters nicht verwenden.
        captionpos=t,language=JAVA]
  {content/pictures/HFUSingeltonSimplifier.java} 
 
-
 \section{Observer}
-
+Bei der Implentierung von Observer verlief zuerst alles nach Plan. Nach einiger
+Zeit hat sich jedoch schnell gezeigt das wir unsere Implementierung nicht so wie
+gedacht und gewünscht umsetzen können. Nach etlichen Stunden Arbeit mussten wir
+hier das Design-Pattern Observer abbrechen bzw. schließen.\\
+Da wir bei diesem Pattern zwei Klassen haben auf die, die Simplifizierung
+Einfluss nimmt, hatten wir hier große Probleme.\\
+Anfangs haben wir eine falsche Denkweiße verfolgt. Uns war nicht klar das die,
+von Rhapsody gegebene, "onPostSimplification"-Methode für jede Klasse ausgeführt
+wird.
+Dies machte unseren Code nur sehr unübersichtlich und wir haben versucht in einem Durchlauf
+beide Klassen, also die Observer- und Subject-Klassen in einem durchlauf
+anzupassen. Durch langes Testen sind wir jedoch dahinter gekommen und haben
+einen anderen Ansatz verfolgt.\\
+Der andere Ansatz war, die erzeugten Klassen nach dem
+gesetzten Sterotypen zu durchsuchen und nach der entsprechenden Klasse zu modifizieren.
+Dies hat soweit auch funktioniert. Das Problem hierbei war der Typ "Observer". Egal ob
+wir die Observer Objekte in eine Liste oder einen Vektor speichern. Wir müssen der 
+Liste bzw. dem Vektor einen Typen zuweisen. Also was in diesen Behälter rein darf. Und
+genau hier ist das Problem.\\
+Dieses Problem wollten wir durch das Erzeugen einer Oberklasse "Observer" lösen.
+Sieht nach einer einfachen Lösung aus, jedoch steckt der Teufel ja bekanntlich
+im Detail. So war es auch in diesem Fall. Auch nach mehreren Stunden
+Dokumentationen durch forschen und etwas experimentieren, haben wir keinen Weg
+gefunden um eine Klasse zu erzeugen.\\
+Natürlich bietet die API eine solche Funktion nur leider gibt es keine Beispiele
+oder nähere Erklärung. So waren unsere Versuche eine Klasse zu erzeugen nicht
+von Erfolg gekrönt. Selbst wenn das Implementieren der Klasse funktioniert
+hätte, haben wir noch das Problem der Vererbung. Diese sollte natürlich auch
+durch die Simplifizierung gelöst werden. Auch das, haben wir nicht aus den
+gegebenen Dokumenten geschafft. Wir dachten uns dabei das der User einfach eine
+Klasse erzeugen muss mit dem Namen Observer. Jedoch bringt das recht wenig, wenn
+man hier noch zusätzlich die Vererbung herstellen muss.\\
+So musste der User immer mehr der Simplifizierung übernehmen und das ist nun
+wirklich nicht Sinn und Zweck einer solchen "automatischen" Simplifizierung.\\
+\\
+Ein anderes Problem waren die ganzen Imports. Verschiedene Bibliotheken müssen
+inkludiert werden um einen problemlosen Ablauf sicherzustellen. Auch das sollte
+nach Möglichkeit direkt bei der Simplifizierung geschehen. Das hat jedoch auch
+nicht funktioniert. Somit hatten wir das Problem das der User mehr für die
+Simplifizierung machen muss als die eigentliche Simplifizierung selbst. Somit
+macht unsere Umsetzung hier wenig Sinn.\\
+Dazu kam das wir am Observer-Pattern die von uns implementierte Fehlerbehandlung
+testen sollten und auch eine Roundtrip-Kontrolle implementieren. Beides musste
+von diesem Pattern abgezogen werden und am Singleton getestet werden. Weiter
+unten im Text befindet sich eine ausführliche Beschreibung dazu.\\ \\
+Nach Absprache mit dem Betreuer sind wir zu dem Entschluss gekommen das wir
+dieses Design-Pattern hier abschließen und mit dem letzten der drei weiter machen.
+Der bisher erzeugte Quellcode wird jedoch auch abgegeben, sodass auch zukünftige
+Gruppen von diesen Erkenntnissen profitieren können.
 
 \section{Guarded Call}
 
+\section{Fehlerbehandlung}
+
+\section{Roundtrip}
+
 
 \section{Ungültige Benutzerklasse}
-Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Pattern (bspw. eine bereits vorhandene, vom Benutzer erstellte getInstance Methode beim Singleton Design Pattern) sollte der Code-Generierungsprozess abgebrochen werden. Dabei wird die \textit{TBD} Methode der Klasse AbstractSimplifier aufgerufen, bei welcher fehlerhafter C++ Code generiert wurde, wodurch wiederum Rhapsody gezwungen wird den Simplification-Prozess abzubrechen.
+Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Pattern (bspw. eine 
+bereits vorhandene, vom Benutzer erstellte getInstance Methode beim Singleton Design Pattern) 
+sollte der Code-Generierungsprozess abgebrochen werden. Dabei wird die \textit{TBD} Methode der 
+Klasse AbstractSimplifier aufgerufen, bei welcher fehlerhafter C++ Code generiert wurde, wodurch 
+wiederum Rhapsody gezwungen wird den Simplification-Prozess abzubrechen.
