@@ -1,4 +1,21 @@
+\chapter{Allgemein}
+
+\section{nötige Projektanpassungen}
+Für jedes neue Projekt in Rhapsody ist es nötig, die .hep-Datei "PatternLoader" in den Ordner <Projektname>_rpy zu kopieren. Im Rhapsodyprojekt muss nun ein neues Profil angelegt werden, welches "PatternLoader" heißt. In diesem Profil muss ein Stereotyp namens "JavaPlugin" erstellt werden. Um die Patterns letztendlich nutzen zu können, muss nur noch das Package namens "HFUDesignPatterns" importiert werden.
+
+\section{Fehlerbehandlung}
+Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Pattern (bspw. eine 
+bereits vorhandene, vom Benutzer erstellte getInstance Methode beim Singleton Design Pattern) 
+sollte der Code-Generierungsprozess abgebrochen werden. Hierbei wird eine spezifische Error-Klasse aufgerufen, die eine Methode in die zu erzeugende Klasse implementiert, welche im Klartext die Fehlermeldung beinhaltet. Dies verursacht einen Syntax-Error im C++-Code. Erst wenn diese Fehlermeldung aus dem Code entfernt wurde, kann wieder korrekter Code generiert werden.
+
+\section{Roundtrip}
+
+Wird für ein Modell Code generiert, wird überprüft, ob die Attribute und Methoden des entsprechenden Design Patterns bereits vorhanden sind. Ist dies der Fall, wird geprüft, ob es sich um die durch einen früheren Simplifizierungsvorgang erstellten Attribute/Methoden handelt, oder ob diese vom Nutzer erstellt wurden. Dann wird die Fehlerbehandlungsroutine durchgeführt. \\
+Wird festgestellt, dass die Attribute/Funktionen aus einer früheren Simplifizierung stammen, werden sie mit dem Stand aus der Design Pattern Spezifikation überschrieben.
+
 \chapter{Design Patterns}
+
+Die Design Patterns müssen aus dem Package "HFUDesignPatterns" verwendet werden.
 
 \section{Singleton}
 
