@@ -16,7 +16,7 @@ konnten wir die User-Simplification des letzten Semesters nicht verwenden.
  {content/pictures/HFUSingeltonSimplifier.java} 
 
 \section{Observer}
-Bei der Implentierung von Observer verlief zuerst alles nach Plan. Nach einiger
+Bei der Implementierung von Observer verlief zuerst alles nach Plan. Nach einiger
 Zeit hat sich jedoch schnell gezeigt das wir unsere Implementierung nicht so wie
 gedacht und gewünscht umsetzen können. Nach etlichen Stunden Arbeit mussten wir
 hier das Design-Pattern Observer abbrechen bzw. schließen.\\
@@ -70,14 +70,11 @@ Gruppen von diesen Erkenntnissen profitieren können.
 
 \section{Fehlerbehandlung}
 
-\subsection{Allgemein}
 Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Pattern (bspw. eine 
 bereits vorhandene, vom Benutzer erstellte getInstance Methode beim Singleton Design Pattern) 
-sollte der Code-Generierungsprozess abgebrochen werden. Dabei wird die \textit{TBD} Methode der 
-Klasse AbstractSimplifier aufgerufen, bei welcher fehlerhafter C++ Code generiert wurde, wodurch 
-wiederum Rhapsody gezwungen wird den Simplification-Prozess abzubrechen.
+sollte der Code-Generierungsprozess abgebrochen werden. Hierbei wird eine spezifische Error-Klasse aufgerufen, die eine Methode in die zu erzeugende Klasse implementiert, welche im Klartext die Fehlermeldung beinhaltet. Dies verursacht einen Syntax-Error im C++-Code. Erst wenn diese Fehlermeldung aus dem Code entfernt wurde, kann wieder korrekter Code generiert werden.
 
 \section{Roundtrip}
 
-
-\section{Ungültige Benutzerklasse}
+Wird für ein Modell Code generiert, wird überprüft, ob die Attribute und Methoden des entsprechenden Design Patterns bereits vorhanden sind. Ist dies der Fall, wird geprüft, ob es sich um die durch einen früheren Simplifizierungsvorgang erstellten Attribute/Methoden handelt, oder ob diese vom Nutzer erstellt wurden. Dann wird die Fehlerbehandlungsroutine durchgeführt. \\
+Wird festgestellt, dass die Attribute/Funktionen aus einer früheren Simplifizierung stammen, werden sie mit dem Stand aus der Design Pattern Spezifikation überschrieben.
