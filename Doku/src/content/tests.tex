@@ -208,28 +208,67 @@ haben Einfluss auf die Simplification.
 \begin{description}
 
 	\item[1.]
-	Bei den ersten Tests wird wie bei den anderen Design Pattern überprüft ob die Namenskonvention eingehalten werden. Im Falle des Guarded Call wird getestet ob der Name für das Mutex-Attribut bereits vergeben ist. Wenn dies der Fall ist, soll eine Meldung gezeigt werden, damit der Benutzer daraufhin den Namen anpassen kann.
+	Bei den ersten Tests wird wie bei den anderen Design Pattern überprüft, ob die Namenskonvention eingehalten werden. Im Falle des Guarded Call wird getestet ob der Name für das Mutex-Attribut bereits vergeben ist. Wenn dies der Fall ist, soll eine Meldung gezeigt werden, damit der Benutzer daraufhin den Namen anpassen kann.
+	\begin{itemize}
+  		\item{Durchführung:}
+			In Rhapsody wurde eine Klasse erstellt, die sowohl den Stereotyp \textit{GuardedCall} als auch ein eigenes integer-Attribut mit dem Namen \enquote{mutex} besitzt.
+  		\item{Ergebnis:}
+			Die Simplifizierung wurde mit dem Hinweis abgebrochen, dass bereits ein Attribut mit dem Namen \enquote{mutex} vorhanden ist.
+  	\end{itemize}
 	
 	\item[2.]
-	Wenn der vorgesehene Name des Mutex-Attributs noch frei ist muss überprüft werden ob der Datentyp der Variable auch dem gewünschten Typ \textit{OMOSMutex*} (plattformunabhängige Mutex von Rhapsody, siehe Beschreibung von Guarded Call) entspricht. Ebenso muss getestet werden ob das Attribut korrekt initialisiert wird.
+	Wenn der vorgesehene Name des Mutex-Attributs noch frei ist muss überprüft werden, ob der Datentyp der Variable auch dem gewünschten Typ \textit{OMOSMutex*} (plattformunabhängige Mutex von Rhapsody, siehe Beschreibung von Guarded Call) entspricht. Ebenso muss getestet werden ob das Attribut korrekt initialisiert wird.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Es wurde eine leere Klasse mit dem Stereotyp \textit{GuardedCall} versehen.
+  		\item{Ergebnis:}
+			Das mutex-Objekt wurde erfolgreich erstellt und im Konstruktor initialisiert.
+  	\end{itemize}
 	
 	\item[3.]
-	Die Funktionsnamen müssen geprüft werden. An den Benutzerfunktionen wird das Wort "Guarded" angehängt. Wenn eine Funktion schon diese Endung hat, darf die Funktion nicht weiter bearbeitet werden und es folgt wieder eine Meldung an den Benutzer.
+	Es muss getestet werden ob die Funktionen, die vom Benutzer erstellt wurden, korrekt umbenannt und auf private gesetzt wurden. Ebenso muss überprüft werden ob in der ursprünglichen Funktion die Wrapper-Funktion richtig erstellt wird.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Es wurde eine Klasse mit einer Funktion erstellt und anschließend der Code zwei Mal hintereinander neu generiert.
+  		\item{Ergebnis:}
+			Bei der ersten Codegenerierung wurde die Funktion umbenannt und auf private gesetzt, während die Wrapper-Funktion korrekt erstellt wurde. Bei der zweiten Codegenerierung blieben beide Funktionen wie gewünscht unverändert.
+  	\end{itemize}
 	
 	\item[4.]
-	Es muss getestet werden ob die Funktionen, die vom Benutzer erstellt wurden, korrekt umbenannt und auf private gesetzt wurden. Ebenso muss überprüft werden ob in der ursprünglichen Funktion die Wrapper-Funktion richtig erstellt wird.
+	Es muss geprüft werden, ob der Funktionsaufruf in der Wrapper-Funktion korrekt von einem try-catch Block eingeschlossen wird. Dabei muss getestet werden ob die in der aufgerufenen Funktion geworfene Exception abgefangen, die Mutex entsperrt und anschließend die abgefangene Exception erneut geworfen wird.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Es wurde eine Guarded-Call Klasse mit einer Funktion erstellt, in der explizit eine Exception geworfen wird. Diese Funktion wurde aufgerufen und versucht, die geworfene Exception abzufangen.
+  		\item{Ergebnis:}
+			Die in der Funktion geworfene Exception wurde beim Funktionsaufruf erfolgreich vom catch-Block abgefangen. 	Das Entsperren der Mutex wurde durch statische Codeanalyse getestet.
+  	\end{itemize}
 	
 	\item[5.]
-	Es muss geprüft werden, ob der Funktionsaufruf in der Wrapper-Funktion korrekt von einem try-catch Block eingeschlossen wird. Dabei muss getestet werden ob die in der aufgerufenen Funktion geworfene Exception abgefangen, die Mutex entsperrt und anschließend die abgefangene Exception erneut geworfen wird.
+	Da immer alle Funktionen des Objekts gesperrt werden muss überprüft werden, ob weitere Threads vor dem Ausführen einer geschützten Funktion auch tatsächlich gesperrt werden sollte bereits ein Thread sich in einer geschützten Funktion befinden.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Das Sperren und Entsperren der Mutex wurde durch statische Codeanalyse getestet.
+  		\item{Ergebnis:}
+			Threads schließen sich gegenseitig aus.
+  	\end{itemize}
 	
 	\item[6.]
-	Da immer alle Funktionen des Objekts gesperrt werden muss überprüft werden, ob weitere Threads vor dem Ausführen einer geschützten Funktion auch tatsächlich gesperrt werden sollte bereits ein Thread sich in einer geschützten Funktion befinden.
+	Ebenso sollte überprüft werden, ob es sich beim Mutexobjekt um eine rekursive Mutex handelt. Dabei muss getestet werden, ob ein Thread sich selbst ausschließt wenn innerhalb einer geschützten Funktion eine Wrapper-Funktion aufgerufen wird.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Es wurde die Dokumentation von IBM bezüglich der Klasse \textit{OMOSMutex} zu Hilfe gezogen.
+  		\item{Ergebnis:}
+			Beim Mutexobjekt handelt es sich um eine rekursive Mutex.
+  	\end{itemize}
 	
 	\item[7.]
-	Ebenso sollte überprüft werden ob es sich beim Mutexobjekt um eine rekursive Mutex handelt. Dabei muss getestet werden, ob ein Thread sich selbst ausschließt wenn innerhalb einer geschützten Funktion eine Wrapper-Funktion aufgerufen wird.
-	
-	\item[8.]
-	Es muss getestet werden ob der Datentyp des Rückgabewerts bei der Wrapper-Funktion und der geschützten Funktion gleich sind und ob beide Funktionen den gleichen Wert zurückgeben.
+	Es muss getestet werden, ob der Datentyp des Rückgabewerts bei der Wrapper-Funktion und der geschützten Funktion gleich sind und ob beide Funktionen den gleichen Wert zurückgeben.
+	\begin{itemize}
+  		\item{Durchführung:}
+			Das Zurückgeben von Werten wurde durch statische Codeanalyse getestet.
+  		\item{Ergebnis:}
+			Beide Funktionen geben den gleichen Wert zurück.
+  	\end{itemize}
 	
 	
 \end{description}

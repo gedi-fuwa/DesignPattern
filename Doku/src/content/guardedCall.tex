@@ -35,16 +35,16 @@ Anschließend generierter Code:
 OMOSMutex* mutex = OMOSFactory::instance()->createOMOSMutex();
 
 void myFunction() {
-	mutex.lock();
+	mutex->lock();
 
 	try {
 		myFunctionGuarded();
 	} catch (...) {
-		mutex.unlock();
+		mutex->unlock();
 		throw;
 	}
 
-	mutex.unlock();
+	mutex->unlock();
 }
 
 void myFunctionGuarded() {
@@ -52,17 +52,17 @@ void myFunctionGuarded() {
 }
 
 int addiere(int a, int b) {
-	mutex.lock();
+	mutex->lock();
 	int temp;
 
 	try {
 		temp = addiereGuarded(a, b);
 	} catch (...) {
-		mutex.unlock();
+		mutex->unlock();
 		throw;
 	}
 
-	mutex.unlock();
+	mutex->unlock();
 	return temp;
 }
 

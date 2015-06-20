@@ -27,6 +27,20 @@ Um das Singleton Design Pattern für eigene Klassen zu verwenden muss der Klasse
 
 Es dürfen keine Methoden vorhanden sein die den Namen getInstance besitzen.\\
 
+
+\section{Guarded Call}
+
+\subsection{Verwendung}
+Um das Design Pattern Guarded Call für eine Klasse verwendet zu können muss zunächst die Klasse mit dem Stereotyp \textit{GuardedCall} gekennzeichnet werden. Anschließend wird bei der Codegenerierung für jede einzelne Methode eine zusätzliche Methode erstellt, die den gegenseitigen Ausschluss mehrerer Threads sicherstellen soll.
+
+\subsection{Zu beachten}
+\begin{itemize}
+\item Die Klasse, die mit dem Guarded Call Pattern geschützt werden soll, darf kein eigenes Attribut mit dem Namen \enquote{mutex} besitzen.
+\item Für die Namen aller Benutzermethoden darf es keine Methode mit dem gleichen Namen plus \enquote{Guarded} als Anhang geben. Hat beispielsweise eine Benutzerfunktion den Namen \enquote{meineFunktion}, darf der Benutzer keine Methode mit dem Namen \enquote{meineFunktionGuarded} erstellen.
+\item Nach der Codegenerierung befindet sich der Benutzercode fortan in einer neuen Funktion mit dem Anhang \enquote{Guarded}, während sich in der ursprünglichen der Code zur Sicherstellung des gegenseitigen Ausschlusses befindet. Möchte man den Benutzercode der Funktion ändern muss dies in der \enquote{Guarded}-Funktion geschehen. Werden allerdings die Parameter oder der Rückgabewert der Funktion geändert müssen beide Funktionen angespasst werden.
+\end{itemize}
+
+
 \section{Observer}
 
 \subsection{Verwendung}
