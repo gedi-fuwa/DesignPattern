@@ -9,7 +9,7 @@ informieren.\\
 \newline
 Die Funktionsweise des Observer Design Patterns erfordert zwei Arten von Objekten. Das Subject 
 stellt Daten zur Verfügung und arbeitet fortlaufend mit diesen. Wurden diese Daten verändert
-informiert das Subject seine Observer und teilt ihnen mit, das sich der Objektzustand verändert 
+informiert das Subject seine Observer und teilt ihnen mit, dass sich der Objektzustand verändert 
 hat. Der Observer kann anschließend auf diese Zustandsänderung reagieren.\\
 \newline
 Ein Beispiel für diesen Anwendungsfall ist eine grafische Oberfläche, welche Daten anzeigt 
@@ -30,7 +30,7 @@ Es gibt drei verschiedene Arten um diese Funktionalität umzusetzen, wobei jede 
 Nachteile hat.\\ 
 \newline
 Push Notification\\
-Bei der Push Notification benachrichtigen die Subjects ihre Observer nur dahingehend, das 
+Bei der Push Notification benachrichtigen die Subjects ihre Observer nur dahingehend, dass 
 sich etwas an dem Objektzustand verändert hat, aber nicht was für eine Veränderung das ist. 
 Dadurch ist dies die schnellste Variante.\\
 \newline
@@ -39,8 +39,8 @@ Bei dieser Art der Umsetzung wird zusätzlich zu der Information über die Zusta
 auch noch die geänderten Daten mitübertragen.\\
 \newline
 Pull Notification\\
-Bei der Pull Notification informieren nicht die Subjects die Observer sondern die Observer 
-fragen in regelmäßigen Abstand bei den Subjects nach, ob Änderungen vorliegen. Aufgrund des 
+Bei der Pull Notification informieren nicht die Subjects die Observer, sondern die Observer 
+fragen in regelmäßigen Abständen bei den Subjects nach ob Änderungen vorliegen. Aufgrund des 
 regelmäßigen Abfragens wird diese Variante seltener verwendet als die beiden anderen, da hier 
 deutlich mehr Rechenzeit von der Observerfunktion benötigt wird.\\
 \newline
@@ -237,10 +237,10 @@ werden.\\
 Das Subject Interface besitzt drei öffentliche Methoden. Mit der Methode register_Observer 
 können Observer für dieses Subject in eine Liste hinzugefügt werden, und mit delete_Observer 
 wieder entfernt. Diese zwei Methoden werden vom Interface automatisch vollständig zur Verfügung
-gestellt. Die Methode notify_Observer sendet eine Update-Benachrictigung an die registrierten Observer.\\
+gestellt. Die Methode notify_Observer sendet eine Update-Benachrichtigung an die registrierten Observer.\\
 \newline
-Wird dieses Design Pattern verwendet, ist es zwar durchaus möglich, dass ein Benutzer ein 
-Observer ohne ein Subject implementiert oder umgekehrt. Jedoch macht die Verwendung 
+Wird dieses Design Pattern verwendet, ist es zwar durchaus möglich dass ein Benutzer ein 
+Observer ohne ein Subject implementiert (oder umgekehrt), jedoch macht die Verwendung 
 dieser Stereotypen nur gemeinsam einen Sinn. In solch einem Fall soll das Programm zwar 
 übersetzt werden, aber dennoch eine Warnung ausgegeben werden um den Benutzer darauf hinzuweisen.
 

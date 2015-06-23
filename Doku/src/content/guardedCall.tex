@@ -1,7 +1,7 @@
 \chapter{Guarded Call}
 
 \section{Allgemeine Informationen}
-Der \enquote{Guarded Call} ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt dass die Methoden eines Objekts nur von einem Thread gleichzeitig ausgeführt werden können, was bedeutet dass weitere Threads mit dem Ausführen einer Methode warten müssen sollte bereits ein anderer Thread eine Methode des Objekts ausführen. \cite[S. 190]{douglass2010design}
+Der \enquote{Guarded Call} ist ein Entwurfsmuster im Bereich der Nebenläufigkeit. Beim Guarded Call wird sichergestellt, dass die Methoden eines Objekts nur von einem Thread gleichzeitig ausgeführt werden können, was bedeutet dass weitere Threads mit dem Ausführen einer Methode warten müssen sollte bereits ein anderer Thread eine Methode des Objekts ausführen. \cite[S. 190]{douglass2010design}
 \\
 Ein Thread überprüft dabei vor dem Aufruf einer Methode ob das Objekt bereits von einem anderen Thread verwendet wird bzw. ob die Objektsperre bereits gesetzt ist. Ist dies der Fall, wird der Thread auf den Zustand \enquote{schlafend} gesetzt und der Scheduler widmet sich einem anderen Thread zu. Ist das Objekt allerdings nicht gesperrt setzt der aktive Thread die Sperre selbst, um anschließend die Methode auszuführen. Nachdem die Methode verlassen wurde, wird die Sperre wieder aufgehoben.
 \\
@@ -10,13 +10,13 @@ Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. di
 Nachdem die Sperre aufgehoben wurde werden die schlafenden Threads aufgeweckt, wobei einer der Threads nun erneut die Sperre setzen und eine Methode des Objekts aufrufen kann.
 
 \section{Umsetzung}
-Um ein Objekt einer Klasse mit dem Guarded Call zu schützen kann der Benutzer den Stereotyp \enquote{Guarded Call} hinzufügen. Anschließend wird bei der Codegenerierung für die Klasse ein Mutex-Objekt erstellt, dass den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt \enquote{OMOSMutex} zur Verfügung, welches zusätzlich rekursives Sperren erlauben kann (für unsere Implementierung zwingend notwendig).
+Um ein Objekt einer Klasse mit dem Guarded Call zu schützen kann der Benutzer den Stereotyp \enquote{GuardedCall} hinzufügen. Anschließend wird bei der Codegenerierung für die Klasse ein Mutex-Objekt erstellt, dass den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt \textit{OMOSMutex} zur Verfügung, welches zusätzlich rekursives Sperren erlaubt (für unsere Implementierung zwingend notwendig).
 \\
 Zudem wird der Code der Methoden in jeweils eine neue Methode ausgelagert, während in der ursprünglichen Methode zunächst versucht wird die Sperre des Mutex-Objekts zu setzen, um anschließend die Methode mit dem ursprünglichen Code aufzurufen und daraufhin die Mutex zu entsperren.
 
 \section{Beispiel}
 
-Beispielfunktionen einer Klasse mit dem \enquote{Guarded Call}-Stereotyp:
+Beispielfunktionen einer Klasse mit dem \enquote{GuardedCall}-Stereotyp:
 
 \begin{lstlisting}
 void myFunction() {

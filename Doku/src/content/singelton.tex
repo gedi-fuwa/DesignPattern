@@ -2,27 +2,27 @@
 
 \section{Allgemeine Informationen}
 
-"Singelton" ist ein Entwurfsmuster das dafür sorgt, dass es nur eine Instanz einer Klasse gibt. Auf diese kann global zugegriffen werden und durch den privaten Konstruktor wird verhindert, dass andere Klassen weitere Instanzen erstellen können.
+\textit{Singleton} ist ein Entwurfsmuster das dafür sorgt, dass es nur eine Instanz einer Klasse gibt. Auf diese kann global zugegriffen werden und durch den privaten Konstruktor wird verhindert, dass andere Klassen weitere Instanzen erstellen können.
 \\
 \\
-Die Singleton-Klasse umfasst daher einen privaten Konstruktor, einen Kopierkonstruktor, einen Zeiger auf die einzigartige Instanz und natürlich den Destruktor. Nur eine Methode ist öffentlich, die "GetInstanz"-Methode.
+Die Singleton-Klasse umfasst daher einen privaten Konstruktor, einen Kopierkonstruktor, einen Zeiger auf die einzigartige Instanz und natürlich den Destruktor. Nur eine Methode ist öffentlich, die \textit{GetInstance}-Methode.
 \\
 \\
-Es gibt viele verschiedene Implementationen des Musters. Wir haben uns für diese Variante entschieden. Besonders muss zwischen zwei Versionen des Musters unterscheiden werden. Es gibt eine Eager- und eine Lazy Version.
+Es gibt viele verschiedene Implementierungen des Musters. Wir haben uns für diese Variante entschieden. Besonders muss zwischen zwei Versionen des Musters unterscheiden werden. Es gibt eine \textit{Eager Version} und eine \textit{Lazy Version}.
 \\
 \\
-Bei der "Eager Loading" Version findet das Erzeugen der Instanz beim Laden der Klasse statt. Vorteile sind hier die Einfachheit und die Threadsicherheit. Jedoch gibt es auch Nachteile. Durch eine verfrühte Erzeugung können Probleme entstehen. Wenn vor der Initialisierung Informationen benötigt werden kann es zu Problemen kommen. Auch eine zu frühe Erzeugung bei ressourcenintensiven Singelton kann Probleme machen.
+Bei der \textit{Eager Loading} Version findet das Erzeugen der Instanz beim Laden der Klasse statt. Vorteile sind hier die Einfachheit und die Threadsicherheit. Jedoch gibt es auch Nachteile. Durch eine verfrühte Erzeugung können Probleme entstehen. Wenn vor der Initialisierung Informationen benötigt werden kann es zu Problemen kommen. Auch eine zu frühe Erzeugung bei ressourcenintensiven Singleton-Klassen kann Probleme machen.
 \\
 \\
-Man sieht, dass die Eager Loading Version nur dann sinnvoll ist, wenn es sich um eine kleine Singleton Klasse handelt.
+Man sieht, dass die Eager Loading Version nur dann sinnvoll ist, wenn es sich um eine kleine Singleton-Klasse handelt.
 \\
 \\
-Gegenteilig verhält sich die "Lazy Loading" Variante des Singleton Musters. Hier wird die Instanz erst beim ersten Aufruf erzeugt. Die Methode GetInstance überprüft, ob bereits eine Instanz erzeugt wurde und erstellt für den Fall, dass es keine gibt, eine neue. Falls es bereits eine Instanz gibt wird diese zurückgegeben.
+Gegenteilig verhält sich die \textit{Lazy Loading} Variante des Singleton Musters. Hier wird die Instanz erst beim ersten Aufruf erzeugt. Die Methode GetInstance überprüft, ob bereits eine Instanz erzeugt wurde und erstellt für den Fall, dass es keine gibt, eine neue. Falls es bereits eine Instanz gibt wird diese zurückgegeben.
 \\
 \\
 Ein Problem bei dieser Methode ist die Threadsicherheit. Diese ist nicht mehr gegeben. \\
 
-Es folgt ein Beispiel für eine Implementation des Singleton Patterns von Scott Meyers, bei dem auch das Objekt beim Ende des Programms zerstört wird:
+Es folgt ein Beispiel für eine Implementierung des Singleton Patterns von Scott Meyers, bei dem auch das Objekt beim Beenden des Programms zerstört wird:
 \begin{lstlisting}
 
 class Singleton
@@ -56,21 +56,21 @@ public:
 };
 \end{lstlisting}
 
-Natürlich kann man sich auch für eine andere Art von Singelton entscheiden, jedoch ist dies eine sehr einfache Art, das Singelton Pattern umzusetzen.
+Natürlich kann man sich auch für eine andere Art von Singleton entscheiden, jedoch ist dies eine sehr einfache Art, das Singleton Pattern umzusetzen.
 \cite{singelton}\cite{singelton2}
 \section{Umsetzung}
 
-Wenn der Entwickler ein UML-Diagramm in Rhapsody zeichnet und dabei eine bestimmte Klasse als Singleton implementieren möchte, setzt er bei dieser Klasse den Stereotype als Singleton. Möchte der Entwickler nun aus diesem Diagramm Code generieren, wird von Rhapsody wie in Kapitel 1 - Aufgabenbeschreibung erläutert Java-Klassen aufgerufen, die diese Klasse dann als Singleton Klasse in C++-Code erzeugen. 
+Wenn der Entwickler ein UML-Diagramm in Rhapsody zeichnet und dabei eine bestimmte Klasse als Singleton implementieren möchte, setzt er bei dieser Klasse den Stereotype als Singleton. Möchte der Entwickler nun aus diesem Diagramm Code generieren, wird von Rhapsody wie in Kapitel 1 - Aufgabenbeschreibung erläutert Java-Klassen aufgerufen, die diese Klasse dann als Singleton-Klasse in C++-Code erzeugen. 
 \\
-Hierbei wird als erstes der Konstruktor und der Kopierkonstruktor auf private gesetzt, da weder von "außerhalb" keine Instanz direkt über den new-Operator erzeugt werden kann, noch ein Objekt kopiert werden soll. Möchte man ein Objekt der Klasse anlegen, muss dies über die GetInstanz Methode geschehen. In dieser Methode wird zunächst geprüft ob es schon eine Instanz gibt, ist dies der Fall wird diese Instanz genutzt, wenn nicht wird eine neue Instanz erzeugt.\\
+Hierbei wird als erstes der Konstruktor und der Kopierkonstruktor auf private gesetzt, da weder von \enquote{außerhalb} keine Instanz direkt über den new-Operator erzeugt werden kann, noch ein Objekt kopiert werden soll. Möchte man ein Objekt der Klasse anlegen, muss dies über die GetInstance-Methode geschehen. In dieser Methode wird zunächst geprüft ob es schon eine Instanz gibt, ist dies der Fall wird diese Instanz genutzt, wenn nicht wird eine neue Instanz erzeugt.\\
 
 
 Falls der Nutzer eine Simplifizierung bei einem Projekt startet, bei welchem
 bereits Code vorhanden ist, so wird zum einen überprüft, ob die
-getInstance-Methode oder das mInstance Attribut vorhanden sind, zum anderen, ob
+GetInstance-Methode oder das mInstance-Attribut vorhanden sind, zum anderen, ob
 die Funktion/das Attribut von einer vorherigen Simplifizierung stammt. Ist dies
 der Fall, wird die Simplifizierung normal durchgeführt und das Attribut bzw. die
 Funktion überschrieben, da davon ausgegangen werden kann, dass der vorhandene
 Code mit dem nun neu generierten übereinstimmt. \\
 Sind Funktion oder Attribut vorhanden, aber stammen nicht aus einer vorherigen
-Simplifizierung wird ein Fehler generiert.
+Simplifizierung, wird ein Fehler generiert.

@@ -42,12 +42,12 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
 \end{figure}
   
   \item[3.]
-  Ein weiterer Test ist, dass geprüft werden muss, ob es möglich ist, ein Singleton-Objekt zur Laufzeit zu zerstören. Das Singelton-Objekt wird erst am Ende der Programmlaufzeit freigegeben. Kann das Objekt schon vorher zerstört werden, schlägt der Test fehl. Der Destruktor muss auch als private deklariert sein.
+  Ein weiterer Test ist, dass geprüft werden muss, ob es möglich ist, ein Singleton-Objekt zur Laufzeit zu zerstören. Das Singleton-Objekt wird erst am Ende der Programmlaufzeit freigegeben. Kann das Objekt schon vorher zerstört werden, schlägt der Test fehl. Der Destruktor muss auch als private deklariert sein.
   \begin{itemize}
   	\item{Durchführung:}
-  	In Rhapsody wurde versucht, ein Singleton-Object zur Laufzeit zu zerstören.
+  	In Rhapsody wurde versucht, ein Singleton-Objekt zur Laufzeit zu zerstören.
   	\item{Ergebnis:}
-  	Der Build in Rhapsody ist fehlgeschlagen, da der Destruktor pirvate ist. Der
+  	Der Build in Rhapsody ist fehlgeschlagen, da der Destruktor private ist. Der
   	Test ist erfolgreich.
   \end{itemize}
   \begin{figure}[!htbp]
@@ -58,13 +58,13 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
 \end{figure}
 
   \item[4.]
-  Möchte man von außerhalb ein Objekt der Singleton-Klasse implementieren, muss dies über die einzige öffentliche Methode der Singleton-Klasse "GetInstance()" passieren. Hierbei wird ein neues Objekt angelegt, sofern noch keins vorhanden war, ansonsten wird einfach das "alte" Objekt zurückgegeben.
+  Möchte man von außerhalb ein Objekt der Singleton-Klasse implementieren, muss dies über die einzige öffentliche Methode der Singleton-Klasse \textit{GetInstance()} passieren. Hierbei wird ein neues Objekt angelegt, sofern noch keins vorhanden war, ansonsten wird einfach das \enquote{alte} Objekt zurückgegeben.
   \begin{itemize}
   	\item{Durchführung:}
   	In Rhapsody wird zweimal eine Singleton-Instanz angefordert.
   	\item{Ergebnis:}
   	Der Build in Rhapsody ist erfolgreich. Beim ersten Anfordern einer
-  	Singleton-Insatnz wurde eine neue Instanz erstellt, beim zweiten Aufruf wurde
+  	Singleton-Instanz wurde eine neue Instanz erstellt, beim zweiten Aufruf wurde
   	die bestehende Instanz zurückgegeben.
   	Der Test ist erfolgreich.
   \end{itemize}
@@ -73,8 +73,8 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
   Hat der Benutzer selbst eine GetInstance-Methode implementiert, muss Rhapsody bei der Erzeugung des Projektes einen Fehler ausgeben und die Erzeugung abbrechen.
   \begin{itemize}
   \item{Durchführung:}
-  In Rhapsody wurde versucht, einer Klasse, die bereits eine getInstance()
-  Methode beinhaltet, den Stereotyp <<Singleton>> zuzuordnen.
+  In Rhapsody wurde versucht, einer Klasse, die bereits eine GetInstance-Methode
+  beinhaltet, den Stereotyp <<Singleton>> zuzuordnen.
   \item{Ergebnis:}
   Der Build in Rhapsody ist nicht fehlgeschlagen. Der Test ist nicht
   erfolgreich.
@@ -83,11 +83,11 @@ Um sicherzustellen, dass die Singleton-Klasse richtig implementiert worden ist, 
 	\centering
 	\includegraphics[width=0.999\textwidth]{content/pictures/tests/singleton/getinstanceerror1}
 	\label{pic:bild}
-	\caption{Fehler bei vorhandener getInstance-Methode}
+	\caption{Fehler bei vorhandener GetInstance-Methode}
 \end{figure}
 
   \item[6.]
-  Nachdem das Singelton-Objekt mithilfe der getInstance()-Methode erzeugt wurde, liefert diese Methode stets die gleiche Instanz der Singleton-Klasse zurück. 
+  Nachdem das Singleton-Objekt mithilfe der GetInstance-Methode erzeugt wurde, liefert diese Methode stets die gleiche Instanz der Singleton-Klasse zurück. 
   \begin{itemize}
   	\item{Durchführung:}
   	In Rhapsody wurden mehrere Singleton-Instanzen angefordert.
@@ -119,12 +119,12 @@ Um sicherzustellen, dass das Observer Pattern richtig implementiert worden ist, 
 	  		bereits eine Funktion update().
 	  	\item{Ergebnis:}
 	  		Test fehlgeschlagen:
-	  		Es wird lediglich eine Meldung ausgegeben: "`Funktion update ist
-	  		bereits vorhanden!"', der Build läuft aber ohne Fehler zu Ende.
+	  		Es wird lediglich eine Meldung ausgegeben: \enquote{`Funktion update ist
+	  		bereits vorhanden!'}, der Build läuft aber ohne Fehler zu Ende.
 	\end{itemize}
 	
 	\item[2.]
-	Wenn der Benutzer nur einen der Observer/Subject Stereotypen zugewiesen hat, muss Rhapsody das Programm übersetzen, aber eine entsprechende Warnung ausgeben.
+	Wenn der Benutzer nur einen der Observer/Subject-Stereotypen zugewiesen hat, muss Rhapsody das Programm übersetzen, aber eine entsprechende Warnung ausgeben.
 	\begin{itemize}
   		\item{Durchführung:}
 			Es wurde versucht, eine Simplification durchzuführen, bei dem nur die
@@ -170,7 +170,7 @@ Um sicherzustellen, dass das Observer Pattern richtig implementiert worden ist, 
   		\item{Durchführung:}
 			Zwei Observer werden erstellt und registriert, die update()-Funktion wird
 			mit einer einfachen Konsolenausgabe implementiert. Das Subject ruft danach
-			die notify() FUnktion auf.
+			die notify() Funktion auf.
   		\item{Ergebnis:}
 			-
   	\end{itemize}
@@ -213,7 +213,7 @@ haben Einfluss auf die Simplification.
   		\item{Durchführung:}
 			In Rhapsody wurde eine Klasse erstellt, die sowohl den Stereotyp \textit{GuardedCall} als auch ein eigenes integer-Attribut mit dem Namen \enquote{mutex} besitzt.
   		\item{Ergebnis:}
-			Die Simplifizierung wurde mit dem Hinweis abgebrochen, dass bereits ein Attribut mit dem Namen \enquote{mutex} vorhanden ist.
+			Test erfolgreich: Die Simplifizierung wurde mit dem Hinweis abgebrochen, dass bereits ein Attribut mit dem Namen \enquote{mutex} vorhanden ist.
   	\end{itemize}
 	
 	\item[2.]
@@ -222,7 +222,7 @@ haben Einfluss auf die Simplification.
   		\item{Durchführung:}
 			Es wurde eine leere Klasse mit dem Stereotyp \textit{GuardedCall} versehen.
   		\item{Ergebnis:}
-			Das mutex-Objekt wurde erfolgreich erstellt und im Konstruktor initialisiert.
+			Test erfolgreich: Das mutex-Objekt wurde erstellt und im Konstruktor initialisiert.
   	\end{itemize}
 	
 	\item[3.]
@@ -231,16 +231,16 @@ haben Einfluss auf die Simplification.
   		\item{Durchführung:}
 			Es wurde eine Klasse mit einer Funktion erstellt und anschließend der Code zwei Mal hintereinander neu generiert.
   		\item{Ergebnis:}
-			Bei der ersten Codegenerierung wurde die Funktion umbenannt und auf private gesetzt, während die Wrapper-Funktion korrekt erstellt wurde. Bei der zweiten Codegenerierung blieben beide Funktionen wie gewünscht unverändert.
+			Test erfolgreich: Bei der ersten Codegenerierung wurde die Funktion umbenannt und auf private gesetzt, während die Wrapper-Funktion korrekt erstellt wurde. Bei der zweiten Codegenerierung blieben beide Funktionen wie gewünscht unverändert.
   	\end{itemize}
 	
 	\item[4.]
 	Es muss geprüft werden, ob der Funktionsaufruf in der Wrapper-Funktion korrekt von einem try-catch Block eingeschlossen wird. Dabei muss getestet werden ob die in der aufgerufenen Funktion geworfene Exception abgefangen, die Mutex entsperrt und anschließend die abgefangene Exception erneut geworfen wird.
 	\begin{itemize}
   		\item{Durchführung:}
-			Es wurde eine Guarded-Call Klasse mit einer Funktion erstellt, in der explizit eine Exception geworfen wird. Diese Funktion wurde aufgerufen und versucht, die geworfene Exception abzufangen.
+			Es wurde eine GuardedCall-Klasse mit einer Funktion erstellt, in der explizit eine Exception geworfen wird. Diese Funktion wurde aufgerufen und versucht, die geworfene Exception abzufangen.
   		\item{Ergebnis:}
-			Die in der Funktion geworfene Exception wurde beim Funktionsaufruf erfolgreich vom catch-Block abgefangen. 	Das Entsperren der Mutex wurde durch statische Codeanalyse getestet.
+			Test erfolgreich: Die in der Funktion geworfene Exception wurde beim Funktionsaufruf vom catch-Block abgefangen. 	Das Entsperren der Mutex wurde durch statische Codeanalyse getestet.
   	\end{itemize}
 	
 	\item[5.]
@@ -249,7 +249,7 @@ haben Einfluss auf die Simplification.
   		\item{Durchführung:}
 			Das Sperren und Entsperren der Mutex wurde durch statische Codeanalyse getestet.
   		\item{Ergebnis:}
-			Threads schließen sich gegenseitig aus.
+			Test erfolgreich: Threads schließen sich gegenseitig aus.
   	\end{itemize}
 	
 	\item[6.]
@@ -258,7 +258,7 @@ haben Einfluss auf die Simplification.
   		\item{Durchführung:}
 			Es wurde die Dokumentation von IBM bezüglich der Klasse \textit{OMOSMutex} zu Hilfe gezogen.
   		\item{Ergebnis:}
-			Beim Mutexobjekt handelt es sich um eine rekursive Mutex.
+			Test erfolgreich: Beim Mutexobjekt handelt es sich um eine rekursive Mutex.
   	\end{itemize}
 	
 	\item[7.]
@@ -267,7 +267,7 @@ haben Einfluss auf die Simplification.
   		\item{Durchführung:}
 			Das Zurückgeben von Werten wurde durch statische Codeanalyse getestet.
   		\item{Ergebnis:}
-			Beide Funktionen geben den gleichen Wert zurück.
+			Test erfolgreich: Beide Funktionen geben den gleichen Wert zurück.
   	\end{itemize}
 	
 	

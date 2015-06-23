@@ -28,20 +28,20 @@ Die Anwenderdokumentation bzw. das Handbuch soll zeitlich am Anfang des Projekts
 Daher ist die Erstellung des Handbuchs eine Aufgabe, die zeitlich am Anfang des Projekts angesiedelt ist.
 
 \section{Simplification}
-Der "Simplification-Prozess" wird von Rhapsody übernommen und transformiert die
+Der \textit{Simplification-Prozess} wird von Rhapsody übernommen und transformiert die
 erzeugten UML-Diagramme in Code. Anhand von verschiedenen Ablaufdiagrammen kann
 auch gleich das Verhalten spezifiziert werden. So lassen sich leicht und schnell
 lauffähige Programme erstellen.\\
 \newline
-Da Rhapsody leider keine Möglichkeit bietet verschiedene Designpattern "von Haus
-aus" einzubinden müssen wir dies manuell tun. Wir greifen in den
+Da Rhapsody leider keine Möglichkeit bietet verschiedene Design Pattern \enquote{von Haus
+aus} einzubinden müssen wir dies manuell tun. Wir greifen in den
 Simplification-Prozess ein und zwingen Rhapsody manuell unsere Implementierung
 zu verwenden.\\
-Hierfür greift der Code-Generator auf den, vom Benutzer eingestellten Helper zu.
+Hierfür greift der Code-Generator auf den vom Benutzer eingestellten Helper zu.
 Hier werden die erzeugten Java-Klassen eingebunden und verarbeitet. Diese
-erzeugen dann die Simplification-Klassen Singelton, Observer und Guarded Call.
-Damit Rhapsody unsere User-Simplification verwendet, muss in den "Simplify
-Properties" eingestellt werden, dass unser User Simplifier benutzt werden soll.
+erzeugen dann die Simplification-Klassen Singleton, Observer und Guarded Call.
+Damit Rhapsody unsere User-Simplification verwendet muss in den \textit{Simplify
+Properties} eingestellt werden, dass unser User Simplifier benutzt werden soll.
 \cite{oldDoku}
 
 \begin{figure}[!htbp]
@@ -51,7 +51,7 @@ Properties" eingestellt werden, dass unser User Simplifier benutzt werden soll.
 	\caption{Simplification Ablauf \cite{oldDoku}}
 \end{figure}
 
-Damit Rhapsody weiß wo diese Java-Klassen liegen, muss man die ".hep" Datei
+Damit Rhapsody weiß wo diese Java-Klassen liegen, muss man die \enquote{.hep} Datei
 anpassen. Diese befindet sich in unserem Fall unter dem jeweiligen
 Benutzer/IBM/\ldots/HFUSingletonPattern/model/HFUSingletonPattern_rpy. Hier ist
 die gesuchte .hep Datei.
@@ -73,9 +73,9 @@ geschrieben und somit die Anwendungsfälle definiert wurden, müssen dazu passen
 entworfen werden. Aufgrund der vielen Unbekannten, die aus einem Projekt entstehen können,
 gibt es viele potentielle Fehlerquellen, die abgedeckt werden müssen. Nur wenn alle Tests 
 bestanden werden gilt das Projekt als erfolgreich.\\
-Für die Durchführung gilt: Die Gruppe die, die Beschreibung verfasst hat,
-schreibt auch die Testfälle dazu. Die andere Gruppe kümmert sich um die
-Implementierung der Pattern. So wird überprüft, ob die Beschreibung auch
+Für die Durchführung gilt: Die Gruppe, die die Beschreibung verfasst hat,
+schreibt auch die jeweiligen Testfälle dazu. Die andere Gruppe kümmert sich um die
+Implementierung der Design Pattern. So wird überprüft, ob die Beschreibung auch
 wirklich vollständig ist. Gleichzeitig wird so die Qualität der Anwendungs- und
 der daraus abgeleiteten Testfälle deutlich.\\
 Für Testfälle, die nicht erfolgreich durchgeführt werden, ist am Ende des Projektzeitplans
