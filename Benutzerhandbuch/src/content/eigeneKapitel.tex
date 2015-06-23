@@ -1,7 +1,7 @@
 \chapter{Allgemein}
 
 \section{nötige Projektanpassungen}
-Für jedes neue Projekt in Rhapsody ist es nötig, die .hep-Datei "PatternLoader" in den Ordner <Projektname>_rpy zu kopieren. Im Rhapsodyprojekt muss nun ein neues Profil angelegt werden, welches "PatternLoader" heißt. In diesem Profil muss ein Stereotyp namens "JavaPlugin" erstellt werden. Um die Patterns letztendlich nutzen zu können, muss nur noch das Package namens "HFUDesignPatterns" importiert werden.
+Für jedes neue Projekt in Rhapsody ist es nötig, die .hep-Datei \enquote{PatternLoader} in den Ordner <Projektname>_rpy zu kopieren. Im Rhapsodyprojekt muss nun ein neues Profil angelegt werden, welches \enquote{PatternLoader} heißt. In diesem Profil muss ein Stereotyp namens \enquote{JavaPlugin} erstellt werden. Um die Patterns letztendlich nutzen zu können, muss nur noch das Package namens \enquote{HFUDesignPatterns} importiert werden.
 
 \section{Fehlerbehandlung}
 Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Pattern (bspw. eine 
@@ -10,18 +10,18 @@ sollte der Code-Generierungsprozess abgebrochen werden. Hierbei wird eine spezif
 
 \section{Roundtrip}
 
-Wird für ein Modell Code generiert, wird überprüft, ob die Attribute und Methoden des entsprechenden Design Patterns bereits vorhanden sind. Ist dies der Fall, wird geprüft, ob es sich um die durch einen früheren Simplifizierungsvorgang erstellten Attribute/Methoden handelt, oder ob diese vom Nutzer erstellt wurden. Dann wird die Fehlerbehandlungsroutine durchgeführt. \\
+Wird für ein Modell Code generiert, wird überprüft ob die Attribute und Methoden des entsprechenden Design Patterns bereits vorhanden sind. Ist dies der Fall, wird geprüft ob es sich um die durch einen früheren Simplifizierungsvorgang erstellten Attribute/Methoden handelt, oder ob diese vom Nutzer erstellt wurden. Dann wird die Fehlerbehandlungsroutine durchgeführt. \\
 Wird festgestellt, dass die Attribute/Funktionen aus einer früheren Simplifizierung stammen, werden sie mit dem Stand aus der Design Pattern Spezifikation überschrieben.
 
 \chapter{Design Patterns}
 
-Die Design Patterns müssen aus dem Package "HFUDesignPatterns" verwendet werden.
+Die Design Patterns müssen aus dem Package \enquote{HFUDesignPatterns} verwendet werden.
 
 \section{Singleton}
 
 \subsection{Verwendung}
 
-Um das Singleton Design Pattern für eigene Klassen zu verwenden muss der Klasse, die als Singleton modelliert werden soll, lediglich der Stereotyp \textit{Singleton} hinzugefügt werden. Anschließend wird bei der Code-Generierung eine \textit{getInstance} Methode erstellt, mit welcher die einzelne Instanz der Klasse verwendet werden kann.
+Um das Singleton Design Pattern für eigene Klassen zu verwenden muss der Klasse, die als Singleton modelliert werden soll, lediglich der Stereotyp \textit{Singleton} hinzugefügt werden. Anschließend wird bei der Code-Generierung eine \textit{getInstance}-Methode erstellt, mit welcher die einzelne Instanz der Klasse verwendet werden kann.
 
 \subsection{Zu beachten}
 
@@ -37,7 +37,7 @@ Um das Design Pattern Guarded Call für eine Klasse verwendet zu können muss zu
 \begin{itemize}
 \item Die Klasse, die mit dem Guarded Call Pattern geschützt werden soll, darf kein eigenes Attribut mit dem Namen \enquote{mutex} besitzen.
 \item Für die Namen aller Benutzermethoden darf es keine Methode mit dem gleichen Namen plus \enquote{Guarded} als Anhang geben. Hat beispielsweise eine Benutzerfunktion den Namen \enquote{meineFunktion}, darf der Benutzer keine Methode mit dem Namen \enquote{meineFunktionGuarded} erstellen.
-\item Nach der Codegenerierung befindet sich der Benutzercode fortan in einer neuen Funktion mit dem Anhang \enquote{Guarded}, während sich in der ursprünglichen der Code zur Sicherstellung des gegenseitigen Ausschlusses befindet. Möchte man den Benutzercode der Funktion ändern muss dies in der \enquote{Guarded}-Funktion geschehen. Werden allerdings die Parameter oder der Rückgabewert der Funktion geändert müssen beide Funktionen angespasst werden.
+\item Nach der Codegenerierung befindet sich der Benutzercode fortan in einer neuen Funktion mit dem Anhang \enquote{Guarded}, während sich in der ursprünglichen Funktion der Code zur Sicherstellung des gegenseitigen Ausschlusses befindet. Möchte man den Benutzercode der Funktion ändern muss dies in der \enquote{Guarded}-Funktion geschehen. Werden allerdings die Parameter oder der Rückgabewert der Funktion geändert müssen beide Funktionen angespasst werden.
 \end{itemize}
 
 
