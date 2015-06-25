@@ -10,7 +10,7 @@ Wird bei der Methode ein Wert zurückgegeben, wird der Wert der Variable bzw. di
 Nachdem die Sperre aufgehoben wurde werden die schlafenden Threads aufgeweckt, wobei einer der Threads nun erneut die Sperre setzen und eine Methode des Objekts aufrufen kann.
 
 \section{Umsetzung}
-Um ein Objekt einer Klasse mit dem Guarded Call zu schützen kann der Benutzer den Stereotyp \enquote{GuardedCall} hinzufügen. Anschließend wird bei der Codegenerierung für die Klasse ein Mutex-Objekt erstellt, dass den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt \textit{OMOSMutex} zur Verfügung, welches zusätzlich rekursives Sperren erlaubt (für unsere Implementierung zwingend notwendig).
+Um ein Objekt einer Klasse mit dem Guarded Call zu schützen kann der Benutzer den Stereotyp \enquote{GuardedCall} hinzufügen. Anschließend wird bei der Codegenerierung für die Klasse ein Mutex-Objekt erstellt, das den gegenseitigen Ausschluss der Threads sicherstellen soll. Hierfür stellt Rhapsody das plattformunabhängige Objekt \textit{OMOSMutex} zur Verfügung, welches zusätzlich rekursives Sperren erlaubt (für unsere Implementierung zwingend notwendig).
 \\
 Zudem wird der Code der Methoden in jeweils eine neue Methode ausgelagert, während in der ursprünglichen Methode zunächst versucht wird die Sperre des Mutex-Objekts zu setzen, um anschließend die Methode mit dem ursprünglichen Code aufzurufen und daraufhin die Mutex zu entsperren.
 
