@@ -85,7 +85,19 @@ Besitzt eine Benutzerklasse ungültigen Code für das ausgewählte Design Patter
 bereits vorhandene, vom Benutzer erstellte GetInstance-Methode beim Singleton Design Pattern) 
 sollte der Code-Generierungsprozess abgebrochen werden. Hierbei wird eine spezifische Error-Klasse aufgerufen, die eine Methode in die zu erzeugende Klasse implementiert, welche im Klartext die Fehlermeldung beinhaltet. Dies verursacht einen Syntax-Error im C++-Code. Erst wenn diese Fehlermeldung aus dem Code entfernt wurde, kann wieder korrekter Code generiert werden.
 
+\lstinputlisting
+    [caption={Fehlerbehandlung}
+       \label{lst:javaclass},
+       captionpos=t,language=JAVA]
+ {content/pictures/ErrorHandling.java} 
+
 \section{Roundtrip}
 
 Wird für ein Modell Code generiert, wird überprüft, ob die Attribute und Methoden des entsprechenden Design Patterns bereits vorhanden sind. Ist dies der Fall, wird geprüft, ob es sich um die durch einen früheren Simplifizierungsvorgang erstellten Attribute/Methoden handelt, oder ob diese vom Nutzer erstellt wurden. Dann wird die Fehlerbehandlungsroutine durchgeführt. \\
 Wird festgestellt, dass die Attribute/Funktionen aus einer früheren Simplifizierung stammen, werden sie mit dem Stand aus der Design Pattern Spezifikation überschrieben.
+
+\lstinputlisting
+    [caption={Roundtrip}
+       \label{lst:javaclass},
+       captionpos=t,language=JAVA]
+ {content/pictures/Roundtrip.java} 
